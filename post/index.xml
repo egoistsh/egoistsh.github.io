@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Even - A super concise theme for Hugo</title>
+    <link>http://egoistsh.github.io/post/</link>
+    <description>Recent content in Posts on Even - A super concise theme for Hugo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 17 Dec 2019 23:52:27 +0800</lastBuildDate><atom:link href="http://egoistsh.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>20191217 想做个伟大的程序员</title>
+      <link>http://egoistsh.github.io/post/20191217-%E6%83%B3%E5%81%9A%E4%B8%AA%E4%BC%9F%E5%A4%A7%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%91%98/</link>
+      <pubDate>Tue, 17 Dec 2019 23:52:27 +0800</pubDate>
+      
+      <guid>http://egoistsh.github.io/post/20191217-%E6%83%B3%E5%81%9A%E4%B8%AA%E4%BC%9F%E5%A4%A7%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%91%98/</guid>
+      <description>学 vue nginx 刷新404 参考：https://www.cnblogs.com/huangc/p/8252471.html 设置背景图片 感觉 background 设置图片比</description>
+    </item>
+    
+    <item>
+      <title>20191209 格局</title>
+      <link>http://egoistsh.github.io/post/20191209-%E6%A0%BC%E5%B1%80/</link>
+      <pubDate>Mon, 09 Dec 2019 08:53:26 +0800</pubDate>
+      
+      <guid>http://egoistsh.github.io/post/20191209-%E6%A0%BC%E5%B1%80/</guid>
+      <description>学 搜索引擎tips &amp;quot;&amp;quot; 精确匹配关键词 -不包含xxx的内容 空格或+ 多个关键词 site 搜索固定网站里包含关键词的内容。eg：site:csdn.net java</description>
+    </item>
+    
+    <item>
+      <title>20191206 总要做点什么</title>
+      <link>http://egoistsh.github.io/post/20191206-%E6%80%BB%E8%A6%81%E5%81%9A%E7%82%B9%E4%BB%80%E4%B9%88/</link>
+      <pubDate>Mon, 09 Dec 2019 08:31:17 +0800</pubDate>
+      
+      <guid>http://egoistsh.github.io/post/20191206-%E6%80%BB%E8%A6%81%E5%81%9A%E7%82%B9%E4%BB%80%E4%B9%88/</guid>
+      <description>思 不要发呆，keep thinking，keep the action。 只有你动起来，才能缓解焦虑。 我觉得自己没什么脑子，思考不出多深刻的东西来，但我</description>
+    </item>
+    
+    <item>
+      <title>20191205 在工作中学习</title>
+      <link>http://egoistsh.github.io/post/20191206-%E5%9C%A8%E5%B7%A5%E4%BD%9C%E4%B8%AD%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Thu, 05 Dec 2019 09:16:31 +0800</pubDate>
+      
+      <guid>http://egoistsh.github.io/post/20191206-%E5%9C%A8%E5%B7%A5%E4%BD%9C%E4%B8%AD%E5%AD%A6%E4%B9%A0/</guid>
+      <description>学 Idea同一窗口打开多个项目 将多个项目放到同一文件夹下 maven add pom文件 查看Oracle当前用户下的信息（用户，表视图，索引，表空间，同义词，</description>
+    </item>
+    
+    <item>
+      <title>20191204 归零心态</title>
+      <link>http://egoistsh.github.io/post/20191204-%E5%BD%92%E9%9B%B6%E5%BF%83%E6%80%81/</link>
+      <pubDate>Wed, 04 Dec 2019 20:06:42 +0800</pubDate>
+      
+      <guid>http://egoistsh.github.io/post/20191204-%E5%BD%92%E9%9B%B6%E5%BF%83%E6%80%81/</guid>
+      <description>今日所学 问题：mysql存储emoji表情存储失败 报错： 1 2 org.springframework.orm.jpa.JpaSystemException: could not execute statement; nested exception is org.hibernate.exception.GenericJDBCException: could not execute statement Caused by: java.sql.SQLException: Incorrect string value: &amp;#39;\xF0\x9F\x90\xB3aa...&amp;#39; for column &amp;#39;Content&amp;#39; at row 1 原因：utf8是一种变长的编</description>
+    </item>
+    
+    <item>
+      <title>20191129 答疑解惑</title>
+      <link>http://egoistsh.github.io/post/20191129-%E7%AD%94%E7%96%91%E8%A7%A3%E6%83%91/</link>
+      <pubDate>Fri, 29 Nov 2019 19:40:55 +0800</pubDate>
+      
+      <guid>http://egoistsh.github.io/post/20191129-%E7%AD%94%E7%96%91%E8%A7%A3%E6%83%91/</guid>
+      <description>今日所学 问题：element-ui，boolean参数传递类型报错 解决：通过:xxx=&amp;lsquo;true&amp;rsquo;方式传递。（动态的</description>
+    </item>
+    
+    <item>
+      <title>20191127 崇尚计划但追求自由</title>
+      <link>http://egoistsh.github.io/post/20191127-%E5%B4%87%E5%B0%9A%E8%AE%A1%E5%88%92%E4%BD%86%E8%BF%BD%E6%B1%82%E8%87%AA%E7%94%B1/</link>
+      <pubDate>Fri, 29 Nov 2019 08:33:29 +0800</pubDate>
+      
+      <guid>http://egoistsh.github.io/post/20191127-%E5%B4%87%E5%B0%9A%E8%AE%A1%E5%88%92%E4%BD%86%E8%BF%BD%E6%B1%82%E8%87%AA%E7%94%B1/</guid>
+      <description>今日所学 yarn和npm的区别 关键： yarn和npm的作用一样。 yarn的优点：速度快、安装版本统一、简洁的输出 命令对比： npm yarn npm init yarn init npm install yarn</description>
+    </item>
+    
+    <item>
+      <title>20191126 人如何活力无限？</title>
+      <link>http://egoistsh.github.io/post/20191126-%E4%BA%BA%E5%A6%82%E4%BD%95%E6%B4%BB%E5%8A%9B%E6%97%A0%E9%99%90/</link>
+      <pubDate>Wed, 27 Nov 2019 10:23:42 +0800</pubDate>
+      
+      <guid>http://egoistsh.github.io/post/20191126-%E4%BA%BA%E5%A6%82%E4%BD%95%E6%B4%BB%E5%8A%9B%E6%97%A0%E9%99%90/</guid>
+      <description>今日所学 powershell&amp;ndash;windows下新的命令行工具 powerShell 继承了cmd的功能并添加了一些其他的功能，比如添加了一些linux</description>
+    </item>
+    
+    <item>
+      <title>20191125 把握身边能学习到东西的机会</title>
+      <link>http://egoistsh.github.io/post/20191125-%E6%8A%8A%E6%8F%A1%E8%BA%AB%E8%BE%B9%E8%83%BD%E5%AD%A6%E4%B9%A0%E5%88%B0%E4%B8%9C%E8%A5%BF%E7%9A%84%E6%9C%BA%E4%BC%9A/</link>
+      <pubDate>Mon, 25 Nov 2019 23:29:02 +0800</pubDate>
+      
+      <guid>http://egoistsh.github.io/post/20191125-%E6%8A%8A%E6%8F%A1%E8%BA%AB%E8%BE%B9%E8%83%BD%E5%AD%A6%E4%B9%A0%E5%88%B0%E4%B8%9C%E8%A5%BF%E7%9A%84%E6%9C%BA%E4%BC%9A/</guid>
+      <description>今日所学 抛出一些问题 区块链获取为何称为挖矿？如何挖？ cdn到底是什么？ 滑动窗口协议是什么，原理是什么？ 区块链获取为何称为挖矿？如何挖？ 参考文</description>
+    </item>
+    
+    <item>
+      <title>20191122 这是该走的路</title>
+      <link>http://egoistsh.github.io/post/20191122-%E8%BF%99%E6%98%AF%E8%AF%A5%E8%B5%B0%E7%9A%84%E8%B7%AF/</link>
+      <pubDate>Fri, 22 Nov 2019 23:58:29 +0800</pubDate>
+      
+      <guid>http://egoistsh.github.io/post/20191122-%E8%BF%99%E6%98%AF%E8%AF%A5%E8%B5%B0%E7%9A%84%E8%B7%AF/</guid>
+      <description>今日所学 使用cdn优化 针对vue项目，可大大缩小build后的ventor.js文件大小。针对其他前端项目应该也有效果。 使用bootCDN查</description>
+    </item>
+    
+    <item>
+      <title>20191121  想到就做</title>
+      <link>http://egoistsh.github.io/post/20191121-%E6%83%B3%E5%88%B0%E5%B0%B1%E5%81%9A/</link>
+      <pubDate>Thu, 21 Nov 2019 22:57:05 +0800</pubDate>
+      
+      <guid>http://egoistsh.github.io/post/20191121-%E6%83%B3%E5%88%B0%E5%B0%B1%E5%81%9A/</guid>
+      <description>今天所学 windows快捷键： key 功能 ctrl + shift + n 或 右键 + w + f 新建文件夹 右键 + w + t 新建文本（需要改下注册表） css&amp;ndash;:befor</description>
+    </item>
+    
+  </channel>
+</rss>
