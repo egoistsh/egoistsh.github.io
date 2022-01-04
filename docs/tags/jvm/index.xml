@@ -1,0 +1,21 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>JVM - 标签 - Kaze Site</title>
+        <link>http://example.org/tags/jvm/</link>
+        <description>JVM - 标签 - Kaze Site</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 04 Jan 2022 22:43:47 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/jvm/" rel="self" type="application/rss+xml" /><item>
+    <title>JVM垃圾回收</title>
+    <link>http://example.org/posts/jvm%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</link>
+    <pubDate>Tue, 04 Jan 2022 22:43:47 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/posts/jvm%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</guid>
+    <description><![CDATA[垃圾回收算法 标记-清除 Mark-Sweep 标记-复制：常用于新生代 标记-整理 Mark-Compact 分代回收：只是根据对象存活周期的不同将内存分为几块。一般将 java 堆分为新生代和老年代]]></description>
+</item><item>
+    <title>Java运行时数据区</title>
+    <link>http://example.org/posts/java%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA/</link>
+    <pubDate>Thu, 23 Dec 2021 22:31:35 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/posts/java%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA/</guid>
+    <description><![CDATA[运行时数据区 《Java虚拟机规范》 ：“概念模型”这个词会经常被提及， 它代表了所有虚拟机的统一外观， 但各款具体的Java虚拟机并不 一定要完全照]]></description>
+</item></channel>
+</rss>

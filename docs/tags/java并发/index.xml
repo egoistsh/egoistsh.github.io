@@ -1,0 +1,21 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Java并发 - 标签 - Kaze Site</title>
+        <link>http://example.org/tags/java%E5%B9%B6%E5%8F%91/</link>
+        <description>Java并发 - 标签 - Kaze Site</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 16 Dec 2021 16:38:28 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/java%E5%B9%B6%E5%8F%91/" rel="self" type="application/rss+xml" /><item>
+    <title>Future &amp; CompletableFuture</title>
+    <link>http://example.org/posts/future-completablefuture/</link>
+    <pubDate>Thu, 16 Dec 2021 16:38:28 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/posts/future-completablefuture/</guid>
+    <description><![CDATA[Future Future 模式是多线程开发中非常常见的一种设计模式，它的核心思想是异步调用。 当我们需要调用一个函数方法时，如果这个函数执行的很慢，那么我们就要进行]]></description>
+</item><item>
+    <title>JVM锁优化</title>
+    <link>http://example.org/posts/jvm%E9%94%81%E4%BC%98%E5%8C%96/</link>
+    <pubDate>Mon, 06 Dec 2021 23:28:22 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/posts/jvm%E9%94%81%E4%BC%98%E5%8C%96/</guid>
+    <description><![CDATA[本文主要目的是理清 Java 的偏向锁、轻量级锁、自选锁、锁消除等概念。 JDK 6，虚拟机团队锁进行了多种优化。在JVM层面实现加锁逻辑，不用依赖底层操作系]]></description>
+</item></channel>
+</rss>
