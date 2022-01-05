@@ -3,7 +3,14 @@
         <title>所有文章 - Kaze Site</title>
         <link>http://example.org/posts/</link>
         <description>所有文章 | Kaze Site</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 04 Jan 2022 22:43:47 &#43;0800</lastBuildDate><atom:link href="http://example.org/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 05 Jan 2022 22:31:50 &#43;0800</lastBuildDate><atom:link href="http://example.org/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>HTTP版本演进</title>
+    <link>http://example.org/posts/http%E7%89%88%E6%9C%AC%E6%BC%94%E8%BF%9B/</link>
+    <pubDate>Wed, 05 Jan 2022 22:31:50 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/posts/http%E7%89%88%E6%9C%AC%E6%BC%94%E8%BF%9B/</guid>
+    <description><![CDATA[http各版本结构 http/1.1 http/1.1的优点 简单 灵活易扩展 应用广泛和跨平台 http/1.1缺点 无状态【双刃剑】。简单解决方案：cookie 明文]]></description>
+</item><item>
     <title>JVM垃圾回收</title>
     <link>http://example.org/posts/jvm%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</link>
     <pubDate>Tue, 04 Jan 2022 22:43:47 &#43;0800</pubDate>
