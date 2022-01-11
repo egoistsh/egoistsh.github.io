@@ -3,9 +3,16 @@
         <title>Kaze Site</title>
         <link>http://example.org/</link>
         <description>关于 LoveIt 主题</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 09 Jan 2022 22:48:04 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 11 Jan 2022 15:22:54 &#43;0800</lastBuildDate>
             <atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>日语语法笔记（持续更新ing）</title>
+    <link>http://example.org/posts/%E6%97%A5%E8%AF%AD%E8%AF%AD%E6%B3%95%E7%AC%94%E8%AE%B0%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0ing/</link>
+    <pubDate>Tue, 11 Jan 2022 15:22:54 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/posts/%E6%97%A5%E8%AF%AD%E8%AF%AD%E6%B3%95%E7%AC%94%E8%AE%B0%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0ing/</guid>
+    <description><![CDATA[AはBです です才是谓语，表示“是”。 は没有意义。 A、B为名词或代词。 AはBではありません ではありません一定要连着使用。 口语化：AはBじゃあり]]></description>
+</item><item>
     <title>TCP三次握手&amp;四次挥手</title>
     <link>http://example.org/posts/tcp%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/</link>
     <pubDate>Sun, 09 Jan 2022 22:48:04 &#43;0800</pubDate>
