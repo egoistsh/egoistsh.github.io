@@ -3,7 +3,14 @@
         <title>计算机网络 - 标签 - Kaze Site</title>
         <link>http://example.org/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</link>
         <description>计算机网络 - 标签 - Kaze Site</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 09 Jan 2022 22:48:04 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 11 Jan 2022 22:23:10 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="self" type="application/rss+xml" /><item>
+    <title>IP层概述</title>
+    <link>http://example.org/posts/ip%E5%B1%82%E6%A6%82%E8%BF%B0/</link>
+    <pubDate>Tue, 11 Jan 2022 22:23:10 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/posts/ip%E5%B1%82%E6%A6%82%E8%BF%B0/</guid>
+    <description><![CDATA[IP 网络层（IP）的主要作用是：实现主机与主机之间的通信，点到点（end to end）的通信。 数据链路层（MAC）的作用是实现直连的两个设备之间通]]></description>
+</item><item>
     <title>TCP三次握手&amp;四次挥手</title>
     <link>http://example.org/posts/tcp%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/</link>
     <pubDate>Sun, 09 Jan 2022 22:48:04 &#43;0800</pubDate>
