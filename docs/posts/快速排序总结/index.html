@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>快速排序总结 - Kaze Site</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="快速排序总结" />
+<meta property="og:description" content="快排基本思想 先从数组中找一个基准数 将其他比它小的元素移动到左边，比它大的元素移动到右边，从而把数组拆分成两个部分 再对左右区间重复第二部，直到" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E6%80%BB%E7%BB%93/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-02-20T21:38:51&#43;08:00" />
+<meta property="article:modified_time" content="2022-02-20T21:38:51&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="快速排序总结"/>
+<meta name="twitter:description" content="快排基本思想 先从数组中找一个基准数 将其他比它小的元素移动到左边，比它大的元素移动到右边，从而把数组拆分成两个部分 再对左右区间重复第二部，直到"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/posts/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E6%80%BB%E7%BB%93/" /><link rel="prev" href="http://example.org/posts/ip%E5%B1%82%E6%A6%82%E8%BF%B0/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "快速排序总结",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/posts\/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E6%80%BB%E7%BB%93\/"
+        },"genre": "posts","keywords": "数据结构与算法","wordcount":  2483 ,
+        "url": "http:\/\/example.org\/posts\/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E6%80%BB%E7%BB%93\/","datePublished": "2022-02-20T21:38:51+08:00","dateModified": "2022-02-20T21:38:51+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Billy"},"author": {
+                "@type": "Person",
+                "name": "Billy"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="" header-mobile=""><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Kaze Site">Kaze Site</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Kaze Site">Kaze Site</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">快速排序总结</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Billy</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"><i class="far fa-folder fa-fw"></i>技术分享</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-02-20">2022-02-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2483 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#快排基本思想">快排基本思想</a></li>
+    <li><a href="#快排实现--双指针">快排实现&ndash;双指针：</a></li>
+    <li><a href="#快排复杂度分析">快排复杂度分析</a></li>
+    <li><a href="#快排迭代写法--借助栈">快排迭代写法&ndash;借助栈</a></li>
+    <li><a href="#快排和归并比较">快排和归并比较</a></li>
+    <li><a href="#快排优化">快排优化</a>
+      <ul>
+        <li><a href="#三数取中法">三数取中法</a></li>
+        <li><a href="#和插入排序搭配使用">和插入排序搭配使用</a></li>
+        <li><a href="#针对重复元素多的情况三向切分三路快排">针对重复元素多的情况：三向切分（三路快排）</a></li>
+        <li><a href="#双轴快排">双轴快排</a></li>
+        <li><a href="#关于实现稳定的快排">关于实现稳定的快排</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="快排基本思想">快排基本思想</h2>
+<ol>
+<li>先从数组中找一个基准数</li>
+<li>将其他比它小的元素移动到左边，比它大的元素移动到右边，从而把数组拆分成两个部分</li>
+<li>再对左右区间重复第二部，直到各区间只有一个数为止</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tva1.sinaimg.cn/large/e6c9d24ely1gzk9f8i1kzj21160f6tb8.jpg"
+        data-srcset="https://tva1.sinaimg.cn/large/e6c9d24ely1gzk9f8i1kzj21160f6tb8.jpg, https://tva1.sinaimg.cn/large/e6c9d24ely1gzk9f8i1kzj21160f6tb8.jpg 1.5x, https://tva1.sinaimg.cn/large/e6c9d24ely1gzk9f8i1kzj21160f6tb8.jpg 2x"
+        data-sizes="auto"
+        alt="https://tva1.sinaimg.cn/large/e6c9d24ely1gzk9f8i1kzj21160f6tb8.jpg"
+        title="image-20220220204134422" /></p>
+<h2 id="快排实现--双指针">快排实现&ndash;双指针：</h2>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">sortArray</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">quickSort</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="n">1</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">nums</span><span class="o">;</span>
+  <span class="o">}</span>
+  
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">quickSort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">low</span><span class="o">,</span> <span class="kt">int</span> <span class="n">hight</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">low</span> <span class="o">&lt;</span> <span class="n">hight</span><span class="o">)</span> <span class="o">{</span>
+      <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">partition</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span> <span class="n">low</span><span class="o">,</span> <span class="n">hight</span><span class="o">);</span>
+      <span class="n">quickSort</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span> <span class="n">low</span><span class="o">,</span> <span class="n">index</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+      <span class="n">quickSort</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span> <span class="n">index</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">hight</span><span class="o">);</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+  
+  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">partition</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">low</span><span class="o">,</span> <span class="kt">int</span> <span class="n">hight</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">pivot</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">low</span><span class="o">];</span>
+    <span class="kt">int</span> <span class="n">start</span> <span class="o">=</span> <span class="n">low</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">low</span> <span class="o">&lt;</span> <span class="n">hight</span><span class="o">)</span> <span class="o">{</span>
+      <span class="c1">//一定要先右边
+</span><span class="c1"></span>      <span class="k">while</span> <span class="o">(</span><span class="n">low</span> <span class="o">&lt;</span> <span class="n">hight</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="o">[</span><span class="n">hight</span><span class="o">]</span> <span class="o">&gt;=</span> <span class="n">pivot</span><span class="o">)</span> <span class="n">hight</span><span class="o">--;</span>
+      <span class="k">while</span> <span class="o">(</span><span class="n">low</span> <span class="o">&lt;</span> <span class="n">hight</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="o">[</span><span class="n">low</span><span class="o">]</span> <span class="o">&lt;=</span> <span class="n">pivot</span><span class="o">)</span> <span class="n">low</span><span class="o">++;</span>
+      <span class="n">swap</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span> <span class="n">low</span><span class="o">,</span> <span class="n">hight</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="n">swap</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span> <span class="n">start</span><span class="o">,</span> <span class="n">low</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">low</span><span class="o">;</span>
+  <span class="o">}</span>
+  
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">swap</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="kt">int</span> <span class="n">j</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+    <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+    <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h2 id="快排复杂度分析">快排复杂度分析</h2>
+<ul>
+<li>最好时间复杂度：$O(nlogn)$</li>
+<li>最坏时间复杂度：$O(n^2)$</li>
+<li>平均时间复杂度：$O(nlogn)$</li>
+<li>最好空间复杂度：$O(logn)$</li>
+<li>最坏空间复杂度：$O(n)$</li>
+<li>平均空间复杂度：$O(logn)$</li>
+<li>是否稳定：不稳定</li>
+</ul>
+<h2 id="快排迭代写法--借助栈">快排迭代写法&ndash;借助栈</h2>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+
+     <span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">sortArray</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Stack</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">stack</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stack</span><span class="o">&lt;&gt;();</span>
+        <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+        <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
+        <span class="k">while</span> <span class="o">(!</span><span class="n">stack</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">low</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span>
+            <span class="kt">int</span> <span class="n">hight</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">low</span> <span class="o">&lt;</span> <span class="n">hight</span><span class="o">)</span> <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">partition</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span> <span class="n">low</span><span class="o">,</span> <span class="n">hight</span><span class="o">);</span>
+                <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">index</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+                <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">low</span><span class="o">);</span>
+                <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">hight</span><span class="o">);</span>
+                <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">index</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">nums</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">partition</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">low</span><span class="o">,</span> <span class="kt">int</span> <span class="n">hight</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">pivot</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">low</span><span class="o">];</span>
+            <span class="kt">int</span> <span class="n">start</span> <span class="o">=</span> <span class="n">low</span><span class="o">;</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">low</span> <span class="o">&lt;</span> <span class="n">hight</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">while</span> <span class="o">(</span><span class="n">low</span> <span class="o">&lt;</span> <span class="n">hight</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="o">[</span><span class="n">hight</span><span class="o">]</span> <span class="o">&gt;=</span> <span class="n">pivot</span><span class="o">)</span> <span class="n">hight</span><span class="o">--;</span>           
+                <span class="k">while</span> <span class="o">(</span><span class="n">low</span> <span class="o">&lt;</span> <span class="n">hight</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="o">[</span><span class="n">low</span><span class="o">]</span> <span class="o">&lt;=</span> <span class="n">pivot</span><span class="o">)</span> <span class="n">low</span><span class="o">++;</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">low</span> <span class="o">&gt;=</span> <span class="n">hight</span><span class="o">)</span> <span class="k">break</span><span class="o">;</span>
+                <span class="n">swap</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span> <span class="n">low</span><span class="o">,</span> <span class="n">hight</span><span class="o">);</span> 
+            <span class="o">}</span>
+            <span class="n">swap</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">start</span><span class="o">,</span><span class="n">low</span><span class="o">);</span>
+            <span class="k">return</span> <span class="n">low</span><span class="o">;</span>
+
+    <span class="o">}</span> 
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">swap</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="kt">int</span> <span class="n">j</span><span class="o">)</span> <span class="o">{</span>    
+        <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+        <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+        <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+    <span class="o">}</span>  
+<span class="o">}</span>
+</code></pre></div><h2 id="快排和归并比较">快排和归并比较</h2>
+<p>快排和归并排序都用到了分治思想。</p>
+<p>但归并排序是自下到上的，先处理子问题，然后再合并。</p>
+<p>快速排序是由上到下的，先分区，然后再处理子问题。</p>
+<p>归并排序是稳定的、时间复杂度为$O(nlogn)$的排序算法，但它是非原地排序算法，因为合并函数需要利用辅助数组保存元素。</p>
+<p>快排通过原地分区函数，可以实现原地排序，解决了归并排序占用太多内存的问题。</p>
+<blockquote>
+<p>原地排序就是指在排序过程中不申请多余的存储空间，只利用原来存储待排数据的存储空间进行比较和交换的数据排序。</p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tva1.sinaimg.cn/large/e6c9d24ely1gzk9hy5v9aj211e0jan1r.jpg"
+        data-srcset="https://tva1.sinaimg.cn/large/e6c9d24ely1gzk9hy5v9aj211e0jan1r.jpg, https://tva1.sinaimg.cn/large/e6c9d24ely1gzk9hy5v9aj211e0jan1r.jpg 1.5x, https://tva1.sinaimg.cn/large/e6c9d24ely1gzk9hy5v9aj211e0jan1r.jpg 2x"
+        data-sizes="auto"
+        alt="https://tva1.sinaimg.cn/large/e6c9d24ely1gzk9hy5v9aj211e0jan1r.jpg"
+        title="image-20220220204411892" /></p>
+<h2 id="快排优化">快排优化</h2>
+<h3 id="三数取中法">三数取中法</h3>
+<p>我们常选<code>nums[low]</code>作为基准值，当面对特殊情况，如数组为正序或逆序时，我们则需要递归调用n-1次，每次只交换了一个元素。因此我们要尽量避免选取序列的最大值或最小值作为基准值。</p>
+<p>因此采用三数取中法，选取3个元素中的中间值放到<code>nums[low]</code>，作为基准值。</p>
+<p>只需加上：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">low</span> <span class="o">+</span> <span class="n">hight</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">1</span><span class="o">;</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">low</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">nums</span><span class="o">[</span><span class="n">hight</span><span class="o">])</span> <span class="n">swap</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span> <span class="n">low</span><span class="o">,</span> <span class="n">hight</span><span class="o">);</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">mid</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">nums</span><span class="o">[</span><span class="n">hight</span><span class="o">])</span> <span class="n">swap</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span> <span class="n">mid</span> <span class="o">,</span><span class="n">hight</span><span class="o">);</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">mid</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">nums</span><span class="o">[</span><span class="n">low</span><span class="o">])</span> <span class="n">swap</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span> <span class="n">mid</span><span class="o">,</span> <span class="n">low</span><span class="o">);</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">sortArray</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>       
+        <span class="n">quickSort</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="n">1</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">nums</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">quickSort</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">low</span><span class="o">,</span> <span class="kt">int</span> <span class="n">hight</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">low</span> <span class="o">&lt;</span> <span class="n">hight</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">partition</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">low</span><span class="o">,</span><span class="n">hight</span><span class="o">);</span>
+            <span class="n">quickSort</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">low</span><span class="o">,</span><span class="n">index</span><span class="o">-</span><span class="n">1</span><span class="o">);</span>
+            <span class="n">quickSort</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">index</span><span class="o">+</span><span class="n">1</span><span class="o">,</span><span class="n">hight</span><span class="o">);</span>
+        <span class="o">}</span>       
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">partition</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">low</span><span class="o">,</span> <span class="kt">int</span> <span class="n">hight</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">//三数取中，大家也可以使用其他方法
+</span><span class="c1"></span>            <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">low</span> <span class="o">+</span> <span class="o">((</span><span class="n">hight</span><span class="o">-</span><span class="n">low</span><span class="o">)</span> <span class="o">&gt;&gt;</span> <span class="n">1</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">low</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">nums</span><span class="o">[</span><span class="n">hight</span><span class="o">])</span> <span class="n">swap</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">low</span><span class="o">,</span><span class="n">hight</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">mid</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">nums</span><span class="o">[</span><span class="n">hight</span><span class="o">])</span> <span class="n">swap</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">mid</span><span class="o">,</span><span class="n">hight</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">mid</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">nums</span><span class="o">[</span><span class="n">low</span><span class="o">])</span> <span class="n">swap</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">mid</span><span class="o">,</span><span class="n">low</span><span class="o">);</span> 
+            <span class="c1">//下面和之前一样，仅仅是多了上面几行代码
+</span><span class="c1"></span>            <span class="kt">int</span> <span class="n">pivot</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">low</span><span class="o">];</span>
+            <span class="kt">int</span> <span class="n">start</span> <span class="o">=</span> <span class="n">low</span><span class="o">;</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">low</span> <span class="o">&lt;</span> <span class="n">hight</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">while</span> <span class="o">(</span><span class="n">low</span> <span class="o">&lt;</span> <span class="n">hight</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="o">[</span><span class="n">hight</span><span class="o">]</span> <span class="o">&gt;=</span> <span class="n">pivot</span><span class="o">)</span> <span class="n">hight</span><span class="o">--;</span>           
+                <span class="k">while</span> <span class="o">(</span><span class="n">low</span> <span class="o">&lt;</span> <span class="n">hight</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="o">[</span><span class="n">low</span><span class="o">]</span> <span class="o">&lt;=</span> <span class="n">pivot</span><span class="o">)</span> <span class="n">low</span><span class="o">++;</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">low</span> <span class="o">&gt;=</span> <span class="n">hight</span><span class="o">)</span> <span class="k">break</span><span class="o">;</span>
+                <span class="n">swap</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span> <span class="n">low</span><span class="o">,</span> <span class="n">hight</span><span class="o">);</span> 
+            <span class="o">}</span>
+            <span class="n">swap</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">start</span><span class="o">,</span><span class="n">low</span><span class="o">);</span>
+            <span class="k">return</span> <span class="n">low</span><span class="o">;</span>
+    <span class="o">}</span>  
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">swap</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="kt">int</span> <span class="n">j</span><span class="o">)</span> <span class="o">{</span>     
+        <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+        <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+        <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+    <span class="o">}</span>  
+<span class="o">}</span>
+</code></pre></div><h3 id="和插入排序搭配使用">和插入排序搭配使用</h3>
+<p>插入排序在元素个数少时效率最高，比快速排序还快。</p>
+<p>所以可以设置一个阈值，当元素个数大于阈值时使用快排，小于阈值时用插入排序。这里阈值设置为7。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">INSERTION_SORT_MAX_LENGTH</span> <span class="o">=</span> <span class="n">7</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">sortArray</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>      
+        <span class="n">quickSort</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="n">1</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">nums</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">quickSort</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">low</span><span class="o">,</span> <span class="kt">int</span> <span class="n">hight</span><span class="o">)</span> <span class="o">{</span>
+
+            <span class="k">if</span> <span class="o">(</span><span class="n">hight</span> <span class="o">-</span> <span class="n">low</span> <span class="o">&lt;=</span> <span class="n">INSERTION_SORT_MAX_LENGTH</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">insertSort</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">low</span><span class="o">,</span><span class="n">hight</span><span class="o">);</span>
+                <span class="k">return</span><span class="o">;</span>
+            <span class="o">}</span>               
+            <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">partition</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">low</span><span class="o">,</span><span class="n">hight</span><span class="o">);</span>
+            <span class="n">quickSort</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">low</span><span class="o">,</span><span class="n">index</span><span class="o">-</span><span class="n">1</span><span class="o">);</span>
+            <span class="n">quickSort</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">index</span><span class="o">+</span><span class="n">1</span><span class="o">,</span><span class="n">hight</span><span class="o">);</span>         
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">partition</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">low</span><span class="o">,</span> <span class="kt">int</span> <span class="n">hight</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">//三数取中，大家也可以使用其他方法
+</span><span class="c1"></span>            <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">low</span> <span class="o">+</span> <span class="o">((</span><span class="n">hight</span><span class="o">-</span><span class="n">low</span><span class="o">)</span> <span class="o">&gt;&gt;</span> <span class="n">1</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">low</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">nums</span><span class="o">[</span><span class="n">hight</span><span class="o">])</span> <span class="n">swap</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">low</span><span class="o">,</span><span class="n">hight</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">mid</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">nums</span><span class="o">[</span><span class="n">hight</span><span class="o">])</span> <span class="n">swap</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">mid</span><span class="o">,</span><span class="n">hight</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">mid</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">nums</span><span class="o">[</span><span class="n">low</span><span class="o">])</span> <span class="n">swap</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">mid</span><span class="o">,</span><span class="n">low</span><span class="o">);</span>   
+            <span class="kt">int</span> <span class="n">pivot</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">low</span><span class="o">];</span>
+            <span class="kt">int</span> <span class="n">start</span> <span class="o">=</span> <span class="n">low</span><span class="o">;</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">low</span> <span class="o">&lt;</span> <span class="n">hight</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">while</span> <span class="o">(</span><span class="n">low</span> <span class="o">&lt;</span> <span class="n">hight</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="o">[</span><span class="n">hight</span><span class="o">]</span> <span class="o">&gt;=</span> <span class="n">pivot</span><span class="o">)</span> <span class="n">hight</span><span class="o">--;</span>           
+                <span class="k">while</span> <span class="o">(</span><span class="n">low</span> <span class="o">&lt;</span> <span class="n">hight</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="o">[</span><span class="n">low</span><span class="o">]</span> <span class="o">&lt;=</span> <span class="n">pivot</span><span class="o">)</span> <span class="n">low</span><span class="o">++;</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">low</span> <span class="o">&gt;=</span> <span class="n">hight</span><span class="o">)</span> <span class="k">break</span><span class="o">;</span>
+                <span class="n">swap</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span> <span class="n">low</span><span class="o">,</span> <span class="n">hight</span><span class="o">);</span> 
+            <span class="o">}</span>
+            <span class="n">swap</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">start</span><span class="o">,</span><span class="n">low</span><span class="o">);</span>
+            <span class="k">return</span> <span class="n">low</span><span class="o">;</span>
+    <span class="o">}</span> 
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">insertSort</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">low</span><span class="o">,</span> <span class="kt">int</span> <span class="n">hight</span><span class="o">)</span> <span class="o">{</span>
+      	<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">low</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">hight</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+          <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+          <span class="kt">int</span> <span class="n">j</span><span class="o">;</span>
+          <span class="k">for</span> <span class="o">(</span><span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="n">0</span><span class="o">;</span> <span class="n">j</span><span class="o">--)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">temp</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">])</span> <span class="o">{</span>
+              <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">+</span><span class="n">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+              <span class="k">continue</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">break</span><span class="o">;</span>
+          <span class="o">}</span>
+          <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">+</span><span class="n">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span> 
+  
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">swap</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="kt">int</span> <span class="n">j</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+        <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+        <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+    <span class="o">}</span> 
+<span class="o">}</span>
+</code></pre></div><h3 id="针对重复元素多的情况三向切分三路快排">针对重复元素多的情况：三向切分（三路快排）</h3>
+<p>将相同元素放到一起呢，大大减小递归调用时的区间大小。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">INSERTION_SORT_MAX_LENGTH</span> <span class="o">=</span> <span class="n">7</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">sortArray</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">quickSort</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="n">1</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">nums</span><span class="o">;</span>
+
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">quickSort</span><span class="o">(</span><span class="kt">int</span> <span class="n">nums</span><span class="o">[],</span> <span class="kt">int</span> <span class="n">low</span><span class="o">,</span> <span class="kt">int</span> <span class="n">hight</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//插入排序
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">hight</span> <span class="o">-</span> <span class="n">low</span> <span class="o">&lt;=</span> <span class="n">INSERTION_SORT_MAX_LENGTH</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">insertSort</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">low</span><span class="o">,</span><span class="n">hight</span><span class="o">);</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="c1">//三数取中
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">low</span> <span class="o">+</span> <span class="o">((</span><span class="n">hight</span><span class="o">-</span><span class="n">low</span><span class="o">)</span> <span class="o">&gt;&gt;</span> <span class="n">1</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">low</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">nums</span><span class="o">[</span><span class="n">hight</span><span class="o">])</span> <span class="n">swap</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">low</span><span class="o">,</span><span class="n">hight</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">mid</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">nums</span><span class="o">[</span><span class="n">hight</span><span class="o">])</span> <span class="n">swap</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">mid</span><span class="o">,</span><span class="n">hight</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">mid</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">nums</span><span class="o">[</span><span class="n">low</span><span class="o">])</span> <span class="n">swap</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">mid</span><span class="o">,</span><span class="n">low</span><span class="o">);</span>
+        <span class="c1">//三向切分
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">low</span><span class="o">,</span>  <span class="n">i</span> <span class="o">=</span> <span class="n">low</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">hight</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">pvoit</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">low</span><span class="o">];</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">pvoit</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">])</span> <span class="o">{</span>
+                <span class="n">swap</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">i</span><span class="o">,</span><span class="n">right</span><span class="o">);</span>
+                <span class="n">right</span><span class="o">--;</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">pvoit</span> <span class="o">==</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">])</span> <span class="o">{</span>
+                <span class="n">i</span><span class="o">++;</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="n">swap</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">left</span><span class="o">,</span><span class="n">i</span><span class="o">);</span>
+                <span class="n">left</span><span class="o">++;</span>
+                <span class="n">i</span><span class="o">++;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="n">quickSort</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">low</span><span class="o">,</span><span class="n">left</span><span class="o">-</span><span class="n">1</span><span class="o">);</span>
+        <span class="n">quickSort</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span><span class="n">right</span><span class="o">+</span><span class="n">1</span><span class="o">,</span><span class="n">hight</span><span class="o">);</span>
+    <span class="o">}</span>
+     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">insertSort</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">low</span><span class="o">,</span> <span class="kt">int</span> <span class="n">hight</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">low</span><span class="o">+</span><span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">hight</span><span class="o">;</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+            <span class="kt">int</span> <span class="n">j</span><span class="o">;</span>
+            <span class="k">for</span> <span class="o">(</span><span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">-</span><span class="n">1</span><span class="o">;</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="n">0</span><span class="o">;</span> <span class="o">--</span><span class="n">j</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">temp</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">])</span> <span class="o">{</span>
+                    <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">+</span><span class="n">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+                    <span class="k">continue</span><span class="o">;</span>
+                <span class="o">}</span> 
+                <span class="k">break</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">+</span><span class="n">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span> 
+    <span class="kd">public</span>  <span class="kt">void</span> <span class="nf">swap</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="kt">int</span> <span class="n">j</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+        <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+        <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>利用探路指针也就是  i，遇到比 pivot 大的元素，则和 right 指针进行交换，交换后 right 指向的元素肯定比 pivot 大，则 right&ndash;，但是，此时我们的 nums[i] 指向的元素并不知道情况，所以我们的 i 指针先不动，继续判断。</p>
+<p>如果此时 nums[i] &lt; pivot 则与 left 指针交换，注意此时我们的 left 指向的值肯定是等于 povit的，所以交换后我们要 left++,i++, nums[i] == pivot 时，仅需要 i++ 即可，继续判断下一个元素。我们也可以借助这个思想来解决经典的荷兰国旗问题。</p>
+<h3 id="双轴快排">双轴快排</h3>
+<p>JDK里的Arrays.sort()主要使用。</p>
+<p>双轴就是选取两个主元素理想将区间划为3部分，这样不仅每次能够确定元素个数增多为2个，划分的区间由原来的两个变成三个，最坏的情况就是左右同大小并且都是最大或者最小，但这样的概率相比一个最大或者最小还是低很多，所以双轴快排的优化力度还是挺大的。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">双轴快排</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">a</span><span class="o">[]=</span> <span class="o">{</span><span class="n">7</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="n">5</span><span class="o">,</span><span class="n">4</span><span class="o">,</span><span class="n">8</span><span class="o">,</span><span class="n">5</span><span class="o">,</span><span class="n">6</span><span class="o">,</span><span class="n">55</span><span class="o">,</span><span class="n">4</span><span class="o">,</span><span class="n">333</span><span class="o">,</span><span class="n">44</span><span class="o">,</span><span class="n">7</span><span class="o">,</span><span class="n">885</span><span class="o">,</span><span class="n">23</span><span class="o">,</span><span class="n">6</span><span class="o">,</span><span class="n">44</span><span class="o">};</span>
+        <span class="n">dualPivotQuickSort</span><span class="o">(</span><span class="n">a</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">a</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="n">1</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">dualPivotQuickSort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span> <span class="n">start</span><span class="o">,</span> <span class="kt">int</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">start</span><span class="o">&gt;</span><span class="n">end</span><span class="o">)</span><span class="k">return</span><span class="o">;</span><span class="c1">//参数不对直接返回
+</span><span class="c1"></span>        <span class="k">if</span><span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">start</span><span class="o">]&gt;</span><span class="n">arr</span><span class="o">[</span><span class="n">end</span><span class="o">])</span>
+            <span class="n">swap</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">start</span><span class="o">,</span> <span class="n">end</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">pivot1</span><span class="o">=</span><span class="n">arr</span><span class="o">[</span><span class="n">start</span><span class="o">],</span><span class="n">pivot2</span><span class="o">=</span><span class="n">arr</span><span class="o">[</span><span class="n">end</span><span class="o">];</span><span class="c1">//储存最左侧和最右侧的值
+</span><span class="c1"></span>        <span class="c1">//(start，left]:左侧小于等于pivot1 [right,end)大于pivot2
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">left</span><span class="o">=</span><span class="n">start</span><span class="o">,</span><span class="n">right</span><span class="o">=</span><span class="n">end</span><span class="o">,</span><span class="n">k</span><span class="o">=</span><span class="n">left</span><span class="o">+</span><span class="n">1</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">k</span><span class="o">&lt;</span><span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">//和左侧交换
+</span><span class="c1"></span>            <span class="k">if</span><span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">k</span><span class="o">]&lt;=</span><span class="n">pivot1</span><span class="o">)</span>
+            <span class="o">{</span>
+                <span class="c1">//需要交换
+</span><span class="c1"></span>                <span class="n">swap</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="o">++</span><span class="n">left</span><span class="o">,</span> <span class="n">k</span><span class="o">++);</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">k</span><span class="o">]&lt;=</span><span class="n">pivot2</span><span class="o">)</span> <span class="o">{</span><span class="c1">//在中间的情况
+</span><span class="c1"></span>                <span class="n">k</span><span class="o">++;</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="k">while</span> <span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">right</span><span class="o">]&gt;=</span><span class="n">pivot2</span><span class="o">)</span> <span class="o">{</span><span class="c1">//如果全部小于直接跳出外层循环
+</span><span class="c1"></span>                    <span class="k">if</span><span class="o">(</span><span class="n">right</span><span class="o">--==</span><span class="n">k</span><span class="o">)</span>
+                        <span class="k">break</span> <span class="o">;</span>
+                <span class="o">}</span>
+                <span class="k">if</span><span class="o">(</span><span class="n">k</span><span class="o">&gt;=</span><span class="n">right</span><span class="o">)</span><span class="k">break</span> <span class="o">;</span>
+                <span class="n">swap</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">k</span><span class="o">,</span> <span class="n">right</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="n">swap</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">start</span><span class="o">,</span> <span class="n">left</span><span class="o">);</span>
+        <span class="n">swap</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">end</span><span class="o">,</span> <span class="n">right</span><span class="o">);</span>
+        <span class="n">dualPivotQuickSort</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">start</span><span class="o">,</span> <span class="n">left</span><span class="o">-</span><span class="n">1</span><span class="o">);</span>
+        <span class="n">dualPivotQuickSort</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">left</span><span class="o">+</span><span class="n">1</span><span class="o">,</span> <span class="n">right</span><span class="o">-</span><span class="n">1</span><span class="o">);</span>
+        <span class="n">dualPivotQuickSort</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">right</span><span class="o">+</span><span class="n">1</span><span class="o">,</span> <span class="n">end</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">swap</span><span class="o">(</span><span class="kt">int</span> <span class="n">arr</span><span class="o">[],</span><span class="kt">int</span> <span class="n">i</span><span class="o">,</span><span class="kt">int</span> <span class="n">j</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">team</span><span class="o">=</span><span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+        <span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]=</span><span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+        <span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">]=</span><span class="n">team</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h3 id="关于实现稳定的快排">关于实现稳定的快排</h3>
+<p>可以在partition函数中保持了原序列中所有元素的相对顺序，只把pivot放到了它的正确位置。具体方法是三遍扫描原序列：</p>
+<ol>
+<li>第一遍先把小于pivot的元素按先后顺序放到tmp里，然后把pivot放到它的正确位置tmp[k]；</li>
+<li>第二遍把大于pivot的元素按先后顺序追加在tmp里，这样除了pivot以前的其他元素，都保持了和原序列中一样的顺序；</li>
+<li>第三遍把tmp赋值回原数组A。</li>
+</ol>
+<p>虽然这种快排的时间复杂度还是$O(nlogn)$，但在partition方法中扫描了3次数组，并且借用了辅助函数，因此不再是in-place排序算法，所以排序时会比常规快排和归并排序更慢，没什么必要。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-02-20</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/ip%E5%B1%82%E6%A6%82%E8%BF%B0/" class="prev" rel="prev" title="IP层概述"><i class="fas fa-angle-left fa-fw"></i>IP层概述</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.81.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Billy</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
