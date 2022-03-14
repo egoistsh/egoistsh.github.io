@@ -60,11 +60,18 @@
     <guid>http://example.org/posts/jvm%E9%94%81%E4%BC%98%E5%8C%96/</guid>
     <description><![CDATA[本文主要目的是理清 Java 的偏向锁、轻量级锁、自选锁、锁消除等概念。 JDK 6，虚拟机团队锁进行了多种优化。在JVM层面实现加锁逻辑，不用依赖底层操作系]]></description>
 </item><item>
-    <title>Java基础知识</title>
-    <link>http://example.org/posts/java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</link>
-    <pubDate>Tue, 02 Mar 2021 21:57:05 &#43;0800</pubDate>
+    <title>Redis分布式锁实现</title>
+    <link>http://example.org/posts/redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0/</link>
+    <pubDate>Sat, 03 Jul 2021 23:28:22 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://example.org/posts/java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</guid>
-    <description><![CDATA[请你谈谈Java中是如何支持正则表达式操作的？ Java中的String类提供了支持正则表达式操作的方法，包括：matches()、repla]]></description>
+    <guid>http://example.org/posts/redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0/</guid>
+    <description><![CDATA[什么是分布式锁？ 分布式锁顾名思义就是用在分布式系统中，用于控制分布式系统之间同步访问共享资源。 核心操作：加锁、解锁、防止锁超时。 分布式锁的几]]></description>
+</item><item>
+    <title>Flume快速上手</title>
+    <link>http://example.org/posts/flume%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/</link>
+    <pubDate>Tue, 01 Jun 2021 23:38:28 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/posts/flume%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/</guid>
+    <description><![CDATA[本文旨在提供一个快速上手Flume的教程，内容上麻雀虽小但五脏俱全. 什么是Flume Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. Flume 是一种分布式、可]]></description>
 </item></channel>
 </rss>

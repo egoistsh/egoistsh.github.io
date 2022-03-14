@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Redis分布式锁实现 - Kaze Site</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="Redis分布式锁实现" />
+<meta property="og:description" content="什么是分布式锁？ 分布式锁顾名思义就是用在分布式系统中，用于控制分布式系统之间同步访问共享资源。 核心操作：加锁、解锁、防止锁超时。 分布式锁的几" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-07-03T23:28:22&#43;08:00" />
+<meta property="article:modified_time" content="2021-07-03T23:28:22&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Redis分布式锁实现"/>
+<meta name="twitter:description" content="什么是分布式锁？ 分布式锁顾名思义就是用在分布式系统中，用于控制分布式系统之间同步访问共享资源。 核心操作：加锁、解锁、防止锁超时。 分布式锁的几"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/posts/redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0/" /><link rel="prev" href="http://example.org/posts/flume%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/" /><link rel="next" href="http://example.org/posts/java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E5%9C%A8%E7%BE%8E%E5%9B%A2%E4%B8%9A%E5%8A%A1%E4%B8%AD%E7%9A%84%E5%AE%9E%E8%B7%B5/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Redis分布式锁实现",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/posts\/redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0\/"
+        },"genre": "posts","keywords": "Redis","wordcount":  1919 ,
+        "url": "http:\/\/example.org\/posts\/redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0\/","datePublished": "2021-07-03T23:28:22+08:00","dateModified": "2021-07-03T23:28:22+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Billy"},"author": {
+                "@type": "Person",
+                "name": "Billy"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="" header-mobile=""><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Kaze Site">Kaze Site</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Kaze Site">Kaze Site</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Redis分布式锁实现</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Billy</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"><i class="far fa-folder fa-fw"></i>技术分享</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-07-03">2021-07-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1919 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#setnx指令">SETNX指令</a></li>
+    <li><a href="#setnx指令--expire指令">SETNX指令 + EXPIRE指令</a></li>
+    <li><a href="#set扩展指令">SET扩展指令</a></li>
+    <li><a href="#set扩展指令--lua">SET扩展指令 + Lua</a></li>
+    <li><a href="#redisson">Redisson</a></li>
+    <li><a href="#基于redis多机实现的redlock">基于Redis多机实现的Redlock</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="什么是分布式锁">什么是分布式锁？</h1>
+<p>分布式锁顾名思义就是用在分布式系统中，用于控制分布式系统之间同步访问共享资源。</p>
+<p>核心操作：加锁、解锁、防止锁超时。</p>
+<h1 id="分布式锁的几种实现">分布式锁的几种实现</h1>
+<ul>
+<li>Memcached 分布式锁：Memecached add命令是原子性的。</li>
+<li>Zookeeper 分布式锁：利用Zookeeper 的顺序临时节点，且临时节点连接中断会自动删除，来实现分布式锁。同时还提供watch机制，可以实现加锁失败就阻塞住，直到获取到锁为止。</li>
+<li>Chubby：Google实现的粗粒度分布式锁服务。</li>
+<li>Redis 分布式锁：下文详细讨论。</li>
+</ul>
+<h1 id="redis分布式锁的实现">Redis分布式锁的实现</h1>
+<h2 id="setnx指令">SETNX指令</h2>
+<p>SETNX指令只在key不存在的情况下，将key设置为value值，若key存在，则不做任何操作。</p>
+<p>key是锁的唯一标识，可以按业务需求锁定的资源命名。</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">SETNX lock_key lock_value
+<span class="k">do</span> something
+DEL lock_key
+</code></pre></div><p>这一方式的问题在于：锁超时问题。如果获得锁的进程在业务处理过程中出现了异常，将导致DEL指令无法执行，锁无法释放，该资源将会被一直锁住。</p>
+<h2 id="setnx指令--expire指令">SETNX指令 + EXPIRE指令</h2>
+<p>因此很容易想到，给key设置一个过期时间。由于SETNX不支持设置过期时间，所以需要额外的EXPIRE指令</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">SETNX lock_key lock_value
+EXPIRE lock_key <span class="m">10</span>
+<span class="k">do</span> something
+DEL lock_key
+</code></pre></div><p>这一方式的问题在于：SETNX 和 EXPIRE 这两个操作是非原子性的， 如果进程在执行 SETNX 和 EXPIRE 之间发生异常，同样会出现上述问题。</p>
+<h2 id="set扩展指令">SET扩展指令</h2>
+<p>为了解决 SETNX 和 EXPIRE 两个操作非原子性的问题，可以使用 Redis 的 SET 指令的扩展参数，使得 SETNX 和 EXPIRE 这两个操作可以原子执行。</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">SET lock_key lock_value NX EX <span class="m">10</span>
+<span class="k">do</span> something
+DEL lock_key
+</code></pre></div><p>这一方式的问题在于：锁可能在业务处理结束前提前释放。从而也可能导致锁被误删。</p>
+<p>为了避免上述情况，建议不要在执行时间过长的场景中使用 Redis 分布式锁，同时一个比较安全的做法是在执行 DEL 释放锁之前对锁进行判断，验证当前锁的持有者是否是自己。</p>
+<p>具体实现就是在加锁时将 value 设置为一个唯一的随机数（或者线程 ID ），释放锁时先判断随机数是否一致，然后再执行释放操作，确保不会错误地释放其它线程持有的锁，除非是锁过期了被服务器自动释放。</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">SET lock_key random_value nx ex <span class="m">10</span>
+<span class="k">do</span> something
+<span class="k">if</span> <span class="nv">random_value</span> <span class="o">==</span> lock_key.value
+	DEL lock_key
+</code></pre></div><h2 id="set扩展指令--lua">SET扩展指令 + Lua</h2>
+<p>但判断 value 和删除 key 是两个独立的操作，并不是原子性的，所以这个地方需要使用 Lua 脚本进行处理。</p>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="kr">if</span> <span class="n">redis.call</span><span class="p">(</span><span class="s2">&#34;get&#34;</span><span class="p">,</span> <span class="n">KEYS</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="n">ARGV</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="kr">then</span>
+  <span class="kr">return</span> <span class="n">redis.call</span><span class="p">(</span><span class="s2">&#34;del&#34;</span><span class="p">,</span> <span class="n">KEYS</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="kr">else</span> 
+  <span class="kr">return</span> <span class="mi">0</span>
+<span class="kr">end</span>
+</code></pre></div><blockquote>
+<p>Redis使用Lua脚本时为什么能保证原子性?</p>
+<p>Redis使用同一个的Lua解释器，来运行所有的命令。Redis保证以一种原子性的方式来执行脚本。在执行脚本时，不会执行其他脚本或Redis命令。这个语义类似于MULTI（开启事务）/EXEC（触发事务，一并执行事务中的所有命令）。从所有其他客户端的角度来看，脚本的效果要么仍然不可见，要么已经完成。</p>
+</blockquote>
+<p>但这并不是一个完美的方案，只是相对完全一点，因为它并没有完全解决执行超时锁被提前释放的问题。</p>
+<h2 id="redisson">Redisson</h2>
+<p>原理：可以利用锁的可重入特性，让获得锁的线程开启一个定时器的守护线程，每 expireTime/3 执行一次，去检查该线程的锁是否存在，如果存在则对锁的过期时间重新设置为 expireTime，即利用守护线程对锁进行“续命”，防止锁由于过期提前释放。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tva1.sinaimg.cn/large/e6c9d24egy1h09rbzt7i7j216s0p4wha.jpg"
+        data-srcset="https://tva1.sinaimg.cn/large/e6c9d24egy1h09rbzt7i7j216s0p4wha.jpg, https://tva1.sinaimg.cn/large/e6c9d24egy1h09rbzt7i7j216s0p4wha.jpg 1.5x, https://tva1.sinaimg.cn/large/e6c9d24egy1h09rbzt7i7j216s0p4wha.jpg 2x"
+        data-sizes="auto"
+        alt="https://tva1.sinaimg.cn/large/e6c9d24egy1h09rbzt7i7j216s0p4wha.jpg"
+        title="image-20220314220024341" /></p>
+<h2 id="基于redis多机实现的redlock">基于Redis多机实现的Redlock</h2>
+<p>以上几种基于 Redis 单机实现的分布式锁其实都存在一个问题，就是加锁时只作用在一个 Redis 节点上，即使 Redis 通过 Sentinel 保证了高可用，但由于 Redis 的复制是异步的，Master 节点获取到锁后在未完成数据同步的情况下发生故障转移，此时其他客户端上的线程依然可以获取到锁，因此会丧失锁的安全性。</p>
+<p>在 Redis 的分布式环境中，Redis 的作者 antirez 提供了 RedLock 的算法来实现一个分布式锁，该算法大概是这样的：</p>
+<p>假设有 N（N&gt;=5）个 Redis 节点，这些节点完全互相独立，不存在主从复制或者其他集群协调机制，确保在这 N 个节点上使用与在 Redis 单实例下相同的方法获取和释放锁。</p>
+<p>获取锁的过程，客户端应执行如下操作：</p>
+<ul>
+<li>获取当前 Unix 时间，以毫秒为单位。</li>
+<li>按顺序依次尝试从 5 个实例使用相同的 key 和具有唯一性的 value（例如 UUID）获取锁。当向 Redis 请求获取锁时，客户端应该设置一个网络连接和响应超时时间，这个超时时间应该小于锁的失效时间。例如锁自动失效时间为 10 秒，则超时时间应该在 5-50 毫秒之间。这样可以避免服务器端 Redis 已经挂掉的情况下，客户端还在一直等待响应结果。如果服务器端没有在规定时间内响应，客户端应该尽快尝试去另外一个 Redis 实例请求获取锁。</li>
+<li>客户端使用当前时间减去开始获取锁时间（步骤 1 记录的时间）就得到获取锁使用的时间。当且仅当从大多数（N/2+1，这里是 3 个节点）的 Redis 节点都取到锁，并且使用的时间小于锁失效时间时，锁才算获取成功。</li>
+<li>如果取到了锁，key 的真正有效时间等于有效时间减去获取锁所使用的时间（步骤 3 计算的结果）。</li>
+<li>如果因为某些原因，获取锁失败（没有在至少 N/2+1 个 Redis 实例取到锁或者取锁时间已经超过了有效时间），客户端应该在所有的 Redis 实例上进行解锁（使用 Redis Lua 脚本）。</li>
+</ul>
+<h1 id="参考">参考</h1>
+<ol>
+<li>
+<p><a href="https://www.infoq.cn/article/dvaaj71f4fbqsxmgvdce">https://www.infoq.cn/article/dvaaj71f4fbqsxmgvdce</a></p>
+</li>
+<li>
+<p><a href="https://juejin.cn/post/6844903830442737671#heading-14">https://juejin.cn/post/6844903830442737671#heading-14</a></p>
+</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-07-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/redis/">Redis</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/flume%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/" class="prev" rel="prev" title="Flume快速上手"><i class="fas fa-angle-left fa-fw"></i>Flume快速上手</a>
+            <a href="/posts/java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E5%9C%A8%E7%BE%8E%E5%9B%A2%E4%B8%9A%E5%8A%A1%E4%B8%AD%E7%9A%84%E5%AE%9E%E8%B7%B5/" class="next" rel="next" title="Java线程池实现原理及其在美团业务中的实践">Java线程池实现原理及其在美团业务中的实践<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.81.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Billy</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

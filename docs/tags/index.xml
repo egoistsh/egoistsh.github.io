@@ -3,7 +3,14 @@
         <title>Tags - 标签 - Kaze Site</title>
         <link>http://example.org/tags/</link>
         <description>Tags - 标签 - Kaze Site</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 20 Feb 2022 21:38:51 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 14 Mar 2022 20:48:04 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>spring</title>
+    <link>http://example.org/tags/spring/</link>
+    <pubDate>Mon, 14 Mar 2022 20:48:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/tags/spring/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
     <title>数据结构与算法</title>
     <link>http://example.org/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/</link>
     <pubDate>Sun, 20 Feb 2022 21:38:51 &#43;0800</pubDate>
@@ -37,6 +44,27 @@
     <pubDate>Thu, 16 Dec 2021 16:38:28 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://example.org/tags/java%E5%B9%B6%E5%8F%91/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>线程池</title>
+    <link>http://example.org/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/</link>
+    <pubDate>Wed, 14 Jul 2021 20:20:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>Redis</title>
+    <link>http://example.org/tags/redis/</link>
+    <pubDate>Sat, 03 Jul 2021 23:28:22 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/tags/redis/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>Flume</title>
+    <link>http://example.org/tags/flume/</link>
+    <pubDate>Tue, 01 Jun 2021 23:38:28 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/tags/flume/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>Java基础</title>

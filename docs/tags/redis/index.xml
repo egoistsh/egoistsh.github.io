@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Redis - 标签 - Kaze Site</title>
+        <link>http://example.org/tags/redis/</link>
+        <description>Redis - 标签 - Kaze Site</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 03 Jul 2021 23:28:22 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/redis/" rel="self" type="application/rss+xml" /><item>
+    <title>Redis分布式锁实现</title>
+    <link>http://example.org/posts/redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0/</link>
+    <pubDate>Sat, 03 Jul 2021 23:28:22 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/posts/redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0/</guid>
+    <description><![CDATA[什么是分布式锁？ 分布式锁顾名思义就是用在分布式系统中，用于控制分布式系统之间同步访问共享资源。 核心操作：加锁、解锁、防止锁超时。 分布式锁的几]]></description>
+</item></channel>
+</rss>
