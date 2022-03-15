@@ -37,7 +37,7 @@ enableEmoji = true
     # 是否包括中日韩文字
     hasCJKLanguage = true
     # 默认每页列表显示的文章数目
-    paginate = 12
+    paginate = 18
     # [UA-XXXXXXXX-X] 谷歌分析代号
     googleAnalytics = ""
     # 版权描述，仅仅用于 SEO
@@ -161,7 +161,7 @@ enableEmoji = true
   name = "Billy"
   email = ""
   link = ""
-  
+
 # 用于 Hugo 输出文档的设置
 [outputs]
   home = ["HTML", "RSS", "JSON"]
