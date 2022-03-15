@@ -1,0 +1,77 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>技术笔记 - 分类 - Kaze Site</title>
+        <link>http://example.org/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/</link>
+        <description>技术笔记 - 分类 - Kaze Site</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 20 Feb 2022 21:38:51 &#43;0800</lastBuildDate><atom:link href="http://example.org/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/" rel="self" type="application/rss+xml" /><item>
+    <title>快速排序总结</title>
+    <link>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E6%80%BB%E7%BB%93/</link>
+    <pubDate>Sun, 20 Feb 2022 21:38:51 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E6%80%BB%E7%BB%93/</guid>
+    <description><![CDATA[快排基本思想 先从数组中找一个基准数 将其他比它小的元素移动到左边，比它大的元素移动到右边，从而把数组拆分成两个部分 再对左右区间重复第二部，直到]]></description>
+</item><item>
+    <title>IP层概述</title>
+    <link>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/ip%E5%B1%82%E6%A6%82%E8%BF%B0/</link>
+    <pubDate>Tue, 11 Jan 2022 22:23:10 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/ip%E5%B1%82%E6%A6%82%E8%BF%B0/</guid>
+    <description><![CDATA[IP 网络层（IP）的主要作用是：实现主机与主机之间的通信，点到点（end to end）的通信。 数据链路层（MAC）的作用是实现直连的两个设备之间通]]></description>
+</item><item>
+    <title>TCP三次握手&amp;四次挥手</title>
+    <link>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/tcp%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/</link>
+    <pubDate>Sun, 09 Jan 2022 22:48:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/tcp%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/</guid>
+    <description><![CDATA[TCP三次握手 三次握手建立连接。 一开始客户端和服务端都处于CLOSED状态，服务端主动监听某个端口，处于LISTEN状态。 第一次握手，客户端]]></description>
+</item><item>
+    <title>HTTP版本演进</title>
+    <link>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/http%E7%89%88%E6%9C%AC%E6%BC%94%E8%BF%9B/</link>
+    <pubDate>Wed, 05 Jan 2022 22:31:50 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/http%E7%89%88%E6%9C%AC%E6%BC%94%E8%BF%9B/</guid>
+    <description><![CDATA[http各版本结构 http/1.1 http/1.1的优点 简单 灵活易扩展 应用广泛和跨平台 http/1.1缺点 无状态【双刃剑】。简单解决方案：cookie 明文]]></description>
+</item><item>
+    <title>JVM垃圾回收</title>
+    <link>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/jvm%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</link>
+    <pubDate>Tue, 04 Jan 2022 22:43:47 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/jvm%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</guid>
+    <description><![CDATA[垃圾回收算法 标记-清除 Mark-Sweep 标记-复制：常用于新生代 标记-整理 Mark-Compact 分代回收：只是根据对象存活周期的不同将内存分为几块。一般将 java 堆分为新生代和老年代]]></description>
+</item><item>
+    <title>Java运行时数据区</title>
+    <link>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/java%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA/</link>
+    <pubDate>Thu, 23 Dec 2021 22:31:35 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/java%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA/</guid>
+    <description><![CDATA[运行时数据区 《Java虚拟机规范》 ：“概念模型”这个词会经常被提及， 它代表了所有虚拟机的统一外观， 但各款具体的Java虚拟机并不 一定要完全照]]></description>
+</item><item>
+    <title>Future &amp; CompletableFuture</title>
+    <link>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/future-completablefuture/</link>
+    <pubDate>Thu, 16 Dec 2021 16:38:28 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/future-completablefuture/</guid>
+    <description><![CDATA[Future Future 模式是多线程开发中非常常见的一种设计模式，它的核心思想是异步调用。 当我们需要调用一个函数方法时，如果这个函数执行的很慢，那么我们就要进行]]></description>
+</item><item>
+    <title>JVM锁优化</title>
+    <link>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/jvm%E9%94%81%E4%BC%98%E5%8C%96/</link>
+    <pubDate>Mon, 06 Dec 2021 23:28:22 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/jvm%E9%94%81%E4%BC%98%E5%8C%96/</guid>
+    <description><![CDATA[本文主要目的是理清 Java 的偏向锁、轻量级锁、自选锁、锁消除等概念。 JDK 6，虚拟机团队锁进行了多种优化。在JVM层面实现加锁逻辑，不用依赖底层操作系]]></description>
+</item><item>
+    <title>Redis分布式锁实现</title>
+    <link>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0/</link>
+    <pubDate>Sat, 03 Jul 2021 23:28:22 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0/</guid>
+    <description><![CDATA[什么是分布式锁？ 分布式锁顾名思义就是用在分布式系统中，用于控制分布式系统之间同步访问共享资源。 核心操作：加锁、解锁、防止锁超时。 分布式锁的几]]></description>
+</item><item>
+    <title>Flume快速上手</title>
+    <link>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/flume%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/</link>
+    <pubDate>Tue, 01 Jun 2021 23:38:28 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/flume%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/</guid>
+    <description><![CDATA[本文旨在提供一个快速上手Flume的教程，内容上麻雀虽小但五脏俱全. 什么是Flume Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. Flume 是一种分布式、可]]></description>
+</item></channel>
+</rss>

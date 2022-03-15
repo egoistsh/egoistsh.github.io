@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Transformer概述 - Kaze Site</title><meta name="Description" content="关于自我"><meta property="og:title" content="Transformer概述" />
+<meta property="og:description" content="Seq2seq 编码器—解码器（encoder-decoder）或者seq2seq模型，这两个模型本质上都用到了两个循环神经网络，分别叫做编码器和解码器。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/%E7%A7%91%E7%A0%94/transformer%E6%A6%82%E8%BF%B0/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-10-10T10:20:04&#43;08:00" />
+<meta property="article:modified_time" content="2021-10-10T10:20:04&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Transformer概述"/>
+<meta name="twitter:description" content="Seq2seq 编码器—解码器（encoder-decoder）或者seq2seq模型，这两个模型本质上都用到了两个循环神经网络，分别叫做编码器和解码器。"/>
+<meta name="application-name" content="Kaze">
+<meta name="apple-mobile-web-app-title" content="Kaze"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/posts/%E7%A7%91%E7%A0%94/transformer%E6%A6%82%E8%BF%B0/" /><link rel="prev" href="http://example.org/posts/%E5%A5%BD%E6%96%87%E8%BD%AC%E8%BD%BD/java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E5%9C%A8%E7%BE%8E%E5%9B%A2%E4%B8%9A%E5%8A%A1%E4%B8%AD%E7%9A%84%E5%AE%9E%E8%B7%B5/" /><link rel="next" href="http://example.org/posts/%E7%A7%91%E7%A0%94/self-attention%E6%A6%82%E8%BF%B0/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Transformer概述",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/posts\/%E7%A7%91%E7%A0%94\/transformer%E6%A6%82%E8%BF%B0\/"
+        },"genre": "posts","keywords": "Transfomer","wordcount":  3066 ,
+        "url": "http:\/\/example.org\/posts\/%E7%A7%91%E7%A0%94\/transformer%E6%A6%82%E8%BF%B0\/","datePublished": "2021-10-10T10:20:04+08:00","dateModified": "2021-10-10T10:20:04+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Billy"},"author": {
+                "@type": "Person",
+                "name": "Billy"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="" header-mobile=""><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Kaze Site">Kaze Site</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/" title="GitHub"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Kaze Site">Kaze Site</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/" title="GitHub"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Transformer概述</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Billy</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%A7%91%E7%A0%94/"><i class="far fa-folder fa-fw"></i>科研</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-10">2021-10-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3066 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#encoder">Encoder</a>
+      <ul>
+        <li><a href="#residual-connection">residual connection</a></li>
+        <li><a href="#layer-normalization">layer normalization</a></li>
+      </ul>
+    </li>
+    <li><a href="#decoder">Decoder</a>
+      <ul>
+        <li><a href="#autoregressive">Autoregressive</a></li>
+        <li><a href="#non-autoregressive">Non-Autoregressive</a></li>
+        <li><a href="#nat-vs-at">NAT VS AT</a></li>
+      </ul>
+    </li>
+    <li><a href="#encoder-decoder">Encoder-Decoder</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="seq2seq">Seq2seq</h1>
+<p>编码器—解码器（encoder-decoder）或者seq2seq模型，这两个模型本质上都用到了两个循环神经网络，分别叫做编码器和解码器。编码器用来分析输入序列，解码器用来生成输出序列。</p>
+<p>编码器的作用是把一个不定长的输入序列变换成一个定长的背景变量<strong>c</strong>，并在该背景变量中编码输入序列信息。常用的编码器是循环神经网络。</p>
+<p>编码器-解码器（seq2seq）可以输入并输出不定长的序列。</p>
+<p>编码器—解码器可使用两个循环神经网络，但后来使用注意力机制效果更好。</p>
+<p>seq2seq model的应用:</p>
+<ul>
+<li>语音识别</li>
+<li>机器翻译</li>
+<li>语音翻译</li>
+<li>语音合成 Text-to-Speech（TTS）Synthesis</li>
+<li>聊天机器人 chatbot</li>
+<li>QA。许多NLP的问题，往往可以看成是QA的问题，如sentiment analysis，而QA的问题，可以用seq2seq model来解。</li>
+<li>句法解析 Syntactic Parsing</li>
+<li>multi-label classification</li>
+<li>Seq2seq for Object Detection</li>
+</ul>
+<p><!-- raw HTML omitted --></p>
+<h1 id="transformer">Transformer</h1>
+<p>transformer就是一个seq2seq model。现在讲到seq2seq&rsquo;s model的时候,第一个想到的，可能都是transformer。</p>
+<p><!-- raw HTML omitted --></p>
+<h2 id="encoder">Encoder</h2>
+<p>seq2seq model Encoder 要做的事情,就是<strong>给一排向量，输出另外一排向量</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tva1.sinaimg.cn/large/008i3skNgy1gvg9n9469fj60yy0kojta02.jpg"
+        data-srcset="https://tva1.sinaimg.cn/large/008i3skNgy1gvg9n9469fj60yy0kojta02.jpg, https://tva1.sinaimg.cn/large/008i3skNgy1gvg9n9469fj60yy0kojta02.jpg 1.5x, https://tva1.sinaimg.cn/large/008i3skNgy1gvg9n9469fj60yy0kojta02.jpg 2x"
+        data-sizes="auto"
+        alt="https://tva1.sinaimg.cn/large/008i3skNgy1gvg9n9469fj60yy0kojta02.jpg"
+        title="image-20211015202542420" /></p>
+<p>给一排向量、输出一排向量这件事情,很多模型都可以做到,可能第一个想到的是,我们刚刚讲完的self-attention,其实不只self-attention,RNN CNN 其实也都能够做到,input一排向量,output另外一个同样长度的向量</p>
+<p>在transformer裡面,transformer的Encoder,用的就是self-attention。</p>
+<p>现在的Encoder裡面,会分成很多很多的block。</p>
+<p><!-- raw HTML omitted --></p>
+<p>每一个block都是输入一排向量,输出一排向量,你输入一排向量 第一个block,第一个block输出另外一排向量,再输给另外一个block,到最后一个block,会输出最终的vector sequence,每一个block 其实,并不是neural network的一层</p>
+<p>每一个block裡面做的事情,是好几个layer在做的事情,在transformer的Encoder裡面,每一个block做的事情,大概是这样子的</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429210257652.png"
+        data-srcset="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429210257652.png, https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429210257652.png 1.5x, https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429210257652.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429210257652.png"
+        title="image-20210429210257652" /></p>
+<ul>
+<li>先做一个self-attention,input一排vector以后,做self-attention,考虑整个sequence的资讯，Output另外一排vector.</li>
+<li>接下来这一排vector,会再丢到fully connected的feed forward network裡面,再output另外一排vector,这一排vector就是block的输出</li>
+</ul>
+<h3 id="residual-connection">residual connection</h3>
+<p>在之前self-attention的时候,我们输入一排vector,就输出一排vector,这边的每一个vector,它是考虑了所有的input以后,所得到的结果。</p>
+<p>在transformer裡面,它加入了一个设计,不只是输出这个vector,我们还要把这个vector加上它的input,得到output。这样的架构叫residual connection</p>
+<p><!-- raw HTML omitted --></p>
+<h3 id="layer-normalization">layer normalization</h3>
+<p>得到residual的结果以后,再做normalization,这边用的不是batch normalization,这边用的叫做layer normalization。</p>
+<p><!-- raw HTML omitted --></p>
+<p>layer normalization做的事情,比bacth normalization更简单一点</p>
+<p>输入一个向量 输出另外一个向量,不需要考虑batch,它会<strong>把输入的这个向量,计算它的mean跟standard deviation</strong></p>
+<p>但是要注意一下,<strong>batch normalization是对不同example,不同feature的同一个dimension,去计算mean跟standard deviation</strong></p>
+<p>但<strong>layer normalization,它是对同一个feature,同一个example裡面,不同的dimension,去计算mean跟standard deviation</strong></p>
+<p>计算出mean,跟standard deviation以后,就可以做一个normalize,我们把input 这个vector裡面每一个,dimension减掉mean,再除以standard deviation以后得到x',就是layer normalization的输出</p>
+<p>$$
+x'_i=\frac{x_i-m}{\sigma}
+$$</p>
+<p>得到layer normalization的输出以后,它的这个输出 才是FC network的输入</p>
+<p><!-- raw HTML omitted --></p>
+<p>而<strong>FC network这边,也有residual的架构</strong>,所以 我们会把FC network的input,跟它的output加起来 做一下residual,得到新的输出</p>
+<p>这个FC network做完residual以后,还不是结束 你要把residual的结果,<strong>再做一次layer normalization</strong>,得到的输出,才是residual network裡面,一个block的输出。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tva1.sinaimg.cn/large/008i3skNly1gvhcqx0ssdj60zq0p6dip02.jpg"
+        data-srcset="https://tva1.sinaimg.cn/large/008i3skNly1gvhcqx0ssdj60zq0p6dip02.jpg, https://tva1.sinaimg.cn/large/008i3skNly1gvhcqx0ssdj60zq0p6dip02.jpg 1.5x, https://tva1.sinaimg.cn/large/008i3skNly1gvhcqx0ssdj60zq0p6dip02.jpg 2x"
+        data-sizes="auto"
+        alt="https://tva1.sinaimg.cn/large/008i3skNly1gvhcqx0ssdj60zq0p6dip02.jpg"
+        title="image-20211016185834610" /></p>
+<p>步骤：</p>
+<ul>
+<li>首先 做self-attention,其实在input的地方,还有加上positional encoding,加上positional的information。</li>
+<li>Multi-Head Attention,这个就是self-attention的block。</li>
+<li>Add&amp;norm,就是residual加layer normalization,我们刚才有说self-attention,有加上residual的connection,加下来还要过layer normalization,图上的Add&amp;norm,就是residual加layer norm的意思</li>
+<li>接下来,要过feed forward network</li>
+<li>fc的feed forward network以后再做一次Add&amp;norm,再做一次residual加layer norm,才是一个block的输出,</li>
+<li>然后这个block会重复n次。</li>
+</ul>
+<h2 id="decoder">Decoder</h2>
+<p>Decoder其实有两种：</p>
+<ul>
+<li>Autoregressive（AT）</li>
+<li>Non-autoregressive (NAT)</li>
+</ul>
+<h3 id="autoregressive">Autoregressive</h3>
+<p>AT的Decoder会将上一个时间点自己的输出当做接下来的输入。</p>
+<p><!-- raw HTML omitted --></p>
+<p>对比encoder和decoder，decoder中使用的self-attention，是masked self-attention。他的不同之处在于，masked的只考虑它左边的东西，不考虑它右边的东西。这才符合decoder的运作。</p>
+<p><!-- raw HTML omitted --></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tva1.sinaimg.cn/large/008i3skNly1gvhd4erizdj61ns0j2grj02.jpg"
+        data-srcset="https://tva1.sinaimg.cn/large/008i3skNly1gvhd4erizdj61ns0j2grj02.jpg, https://tva1.sinaimg.cn/large/008i3skNly1gvhd4erizdj61ns0j2grj02.jpg 1.5x, https://tva1.sinaimg.cn/large/008i3skNly1gvhd4erizdj61ns0j2grj02.jpg 2x"
+        data-sizes="auto"
+        alt="https://tva1.sinaimg.cn/large/008i3skNly1gvhd4erizdj61ns0j2grj02.jpg"
+        title="image-20211016191134383" /></p>
+<p>为了让Decoder决定输出的sequence的长度，还需要准备一个特殊的符号，用来表示终止。当他产生出来的向量是这个符号时，这个decoder产生sequence的过程就结束了。</p>
+<h3 id="non-autoregressive">Non-Autoregressive</h3>
+<p>NAT和AT的不同点在于，NAT的Decoder吃一整排BEGIN的Token，然后产生一排的Token就结束了。</p>
+<p>至于输出的长度为多少，没有办法很直接的知道,以下有几个做法：</p>
+<ul>
+<li>另外learn一个 Classifier,这个 Classifier ,它吃 Encoder 的 Input,然后输出是一个数字,这个数字代表 Decoder 应该要输出的长度。</li>
+<li>另一种可能做法就是,<strong>给它一堆 BEGIN 的 Token</strong>,假设输出的句子的长度,绝对不会超过 300 个字,给它 300 个 BEGIN,然后就会输出 300 个字，再看<strong>什麼地方输出 END</strong>,输出 END 右边的,就当做它没有输出。</li>
+</ul>
+<p><!-- raw HTML omitted --></p>
+<h3 id="nat-vs-at">NAT VS AT</h3>
+<p>NAT的好处：</p>
+<ul>
+<li>并行化。使用AT，是一个个产生的，假设要输出100个字的句子，就要做100次的decode。</li>
+<li>能控制输出的长度。</li>
+</ul>
+<p>NAT的劣势：</p>
+<ul>
+<li>性能往往不如AT</li>
+</ul>
+<h2 id="encoder-decoder">Encoder-Decoder</h2>
+<p>encoder和decoder之间是如何传递的？</p>
+<p>Cross-Attention：</p>
+<ol>
+<li>decoder 对输入做masked self-attention，产生一个q。</li>
+<li>将q与encoder这边产生的k1、k2、k3计算attention的分数</li>
+<li>再把得到的结果的weighted sum相加得到v</li>
+<li>v当做接下来decoder的fully connected network的input</li>
+</ol>
+<p><!-- raw HTML omitted --></p>
+<h1 id="参考">参考</h1>
+<ol>
+<li>
+<p>Vaswani, Ashish, et al. &ldquo;Attention is all you need.&rdquo; Advances in neural information processing systems 30 (2017).</p>
+</li>
+<li>
+<p>HUNG-YI LEE (李宏毅) &ldquo;MACHINE LEARNING 2021 SPRING&rdquo;</p>
+</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-10-10</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/transfomer/">Transfomer</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E5%A5%BD%E6%96%87%E8%BD%AC%E8%BD%BD/java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E5%9C%A8%E7%BE%8E%E5%9B%A2%E4%B8%9A%E5%8A%A1%E4%B8%AD%E7%9A%84%E5%AE%9E%E8%B7%B5/" class="prev" rel="prev" title="Java线程池实现原理及其在美团业务中的实践"><i class="fas fa-angle-left fa-fw"></i>Java线程池实现原理及其在美团业务中的实践</a>
+            <a href="/posts/%E7%A7%91%E7%A0%94/self-attention%E6%A6%82%E8%BF%B0/" class="next" rel="next" title="Self-Attention概述">Self-Attention概述<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Just do it!
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Billy</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"search":{"algoliaAppID":"B4Q47QCNK4","algoliaIndex":"index.zh-cn","algoliaSearchKey":"f8acf4ce02e3d592053c4fb7a6c1d7b4","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

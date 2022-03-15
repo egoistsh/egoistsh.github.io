@@ -75,18 +75,18 @@ enableEmoji = true
         pre = "<i class='fab fa-github fa-fw'></i>"
         post = ""
         name = ""
-        url = "https://github.com/dillonzq/LoveIt"
+        url = ""
         title = "GitHub"
         weight = 6
     [languages.zh-cn.params]
       # 网站描述
-      description = "关于 LoveIt 主题"
+      description = "关于自我"
       # 网站关键词
       keywords = ["Theme", "Hugo"]
       # 应用图标配置
       [languages.zh-cn.params.app]
         # 当添加到 iOS 主屏幕或者 Android 启动器时的标题, 覆盖默认标题
-        title = "LoveIt"
+        title = "Kaze"
         # 是否隐藏网站图标资源链接
         noFavicon = false
         # 更现代的 SVG 网站图标, 可替代旧的 .png 和 .ico 文件
@@ -116,8 +116,8 @@ enableEmoji = true
         absoluteURL = false
         [languages.zh-cn.params.search.algolia]
           index = "index.zh-cn"
-          appID = "PASDMWALPK"
-          searchKey = "b42948e51daaa93df92381c8e2ac0f93"
+          appID = "B4Q47QCNK4"
+          searchKey = "f8acf4ce02e3d592053c4fb7a6c1d7b4"
       # 主页信息设置
       [languages.zh-cn.params.home]
         # RSS 文章数目
@@ -161,3 +161,7 @@ enableEmoji = true
   name = "Billy"
   email = ""
   link = ""
+  
+# 用于 Hugo 输出文档的设置
+[outputs]
+  home = ["HTML", "RSS", "JSON"]

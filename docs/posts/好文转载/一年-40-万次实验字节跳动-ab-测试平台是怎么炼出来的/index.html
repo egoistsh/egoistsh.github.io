@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>一年 40 万次实验，字节跳动 A/B 测试平台是怎么炼出来的？ - Kaze Site</title><meta name="Description" content="关于自我"><meta property="og:title" content="一年 40 万次实验，字节跳动 A/B 测试平台是怎么炼出来的？" />
+<meta property="og:description" content="2012 年，刚刚建立的字节跳动便开启了 A/B 测试之旅，随着今日头条、抖音、西瓜视频等全线业务的使用，将 A/B 测试应用在产品命名、交互设计、推荐算法、用户增" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/%E5%A5%BD%E6%96%87%E8%BD%AC%E8%BD%BD/%E4%B8%80%E5%B9%B4-40-%E4%B8%87%E6%AC%A1%E5%AE%9E%E9%AA%8C%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8-ab-%E6%B5%8B%E8%AF%95%E5%B9%B3%E5%8F%B0%E6%98%AF%E6%80%8E%E4%B9%88%E7%82%BC%E5%87%BA%E6%9D%A5%E7%9A%84/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-15T10:20:04&#43;08:00" />
+<meta property="article:modified_time" content="2022-03-15T10:20:04&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="一年 40 万次实验，字节跳动 A/B 测试平台是怎么炼出来的？"/>
+<meta name="twitter:description" content="2012 年，刚刚建立的字节跳动便开启了 A/B 测试之旅，随着今日头条、抖音、西瓜视频等全线业务的使用，将 A/B 测试应用在产品命名、交互设计、推荐算法、用户增"/>
+<meta name="application-name" content="Kaze">
+<meta name="apple-mobile-web-app-title" content="Kaze"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/posts/%E5%A5%BD%E6%96%87%E8%BD%AC%E8%BD%BD/%E4%B8%80%E5%B9%B4-40-%E4%B8%87%E6%AC%A1%E5%AE%9E%E9%AA%8C%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8-ab-%E6%B5%8B%E8%AF%95%E5%B9%B3%E5%8F%B0%E6%98%AF%E6%80%8E%E4%B9%88%E7%82%BC%E5%87%BA%E6%9D%A5%E7%9A%84/" /><link rel="prev" href="http://example.org/posts/%E5%A5%BD%E6%96%87%E8%BD%AC%E8%BD%BD/spring-%E4%B8%BA%E4%BD%95%E9%9C%80%E8%A6%81%E4%B8%89%E7%BA%A7%E7%BC%93%E5%AD%98%E8%A7%A3%E5%86%B3%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E8%80%8C%E4%B8%8D%E6%98%AF%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "一年 40 万次实验，字节跳动 A/B 测试平台是怎么炼出来的？",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/posts\/%E5%A5%BD%E6%96%87%E8%BD%AC%E8%BD%BD\/%E4%B8%80%E5%B9%B4-40-%E4%B8%87%E6%AC%A1%E5%AE%9E%E9%AA%8C%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8-ab-%E6%B5%8B%E8%AF%95%E5%B9%B3%E5%8F%B0%E6%98%AF%E6%80%8E%E4%B9%88%E7%82%BC%E5%87%BA%E6%9D%A5%E7%9A%84\/"
+        },"genre": "posts","keywords": "A\/B Test","wordcount":  2840 ,
+        "url": "http:\/\/example.org\/posts\/%E5%A5%BD%E6%96%87%E8%BD%AC%E8%BD%BD\/%E4%B8%80%E5%B9%B4-40-%E4%B8%87%E6%AC%A1%E5%AE%9E%E9%AA%8C%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8-ab-%E6%B5%8B%E8%AF%95%E5%B9%B3%E5%8F%B0%E6%98%AF%E6%80%8E%E4%B9%88%E7%82%BC%E5%87%BA%E6%9D%A5%E7%9A%84\/","datePublished": "2022-03-15T10:20:04+08:00","dateModified": "2022-03-15T10:20:04+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Billy"},"author": {
+                "@type": "Person",
+                "name": "Billy"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="" header-mobile=""><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Kaze Site">Kaze Site</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/" title="GitHub"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Kaze Site">Kaze Site</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/" title="GitHub"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">一年 40 万次实验，字节跳动 A/B 测试平台是怎么炼出来的？</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Billy</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%A5%BD%E6%96%87%E8%BD%AC%E8%BD%BD/"><i class="far fa-folder fa-fw"></i>好文转载</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-15">2022-03-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2840 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p>2012 年，刚刚建立的字节跳动便开启了 A/B 测试之旅，随着今日头条、抖音、西瓜视频等全线业务的使用，将 A/B 测试应用在产品命名、交互设计、推荐算法、用户增长、广告优化和市场活动等各方面决策上。据今年 4 月字节跳动旗下火山引擎技术开放日上透露的数据显示，字节跳动每天同时进行的 A/B 测试达到上万场，单日新增实验数量超过 1500 个，覆盖 400 多项业务。随着公司发展，这些数字还在不断扩大，仅最近一年就已经做了 40 万次 A/B 测试。</p>
+<p>那么在字节跳动里，支撑这些测试的技术平台是怎么炼出来的？我们采访了字节跳动 A/B 实验平台技术负责人王珂，通过他的回复我们可以得到一个初步的了解。王珂将在 2021 年 10 月 21-23 日<a href="https://qcon.infoq.cn/2021/shanghai/" target="_blank" rel="noopener noreffer">QCon上海站</a>分享主题为《<a href="https://qcon.infoq.cn/2021/shanghai/presentation/3861" target="_blank" rel="noopener noreffer">字节跳动 A/B 测试平台演进历史及实践</a>》的演讲，更多内容可以通过观看演讲进行了解。</p>
+<p><strong>嘉宾简介：王珂</strong>，字节跳动 A/B 实验平台技术负责人。目前就职于字节跳动数据平台，负责内部 A/B 实验平台的研发，支撑内部各个业务线的 A/B 实验需求，在 A/B 实验领域有比较深入的理解。曽经任职于亚马逊中国库存健康优化团队，有多年大数据及服务架构经验。</p>
+<p><strong>InfoQ：</strong> 有说法是目前这种形式的 A/B 测试最早出现于 1990 年代，您认为其核心原理这么多年是否有改变？</p>
+<p><strong>王珂：</strong> 核心原理基本没有发生什么改变，仍然是依赖随机采样获取两个样本集合，施加不同的策略，采集结果比较和分析。如果要说变化，更多的是应对实际的 A/B 测试场景，在测试方式、指标设计和显著性分析方法等细节上有了更多的探索和演进。</p>
+<p><strong>InfoQ：</strong> 能否以一个简单的例子，说明 A/B 测试如何工作？</p>
+<p><strong>王珂：</strong> 简单来说，一个 A/B 测试生命周期大致分三个部分：A/B 测试设计（包括测试内容、预期收益、测试时长、测试流量、观测指标等的确认）、A/B 测试执行（利用 A/B 测试平台的能力完成分流、配置分发、数据回收等）、A/B 测试结果分析（产出指标数据，显著性分析，多维下探等，最后形成分析报告）。</p>
+<p><strong>InfoQ：</strong> A/B 测试适合哪些场景？能运行 A/B 测试需要哪些必备条件？字节跳动的 A/B 测试平台主要适用于什么场景？</p>
+<p><strong>王珂：</strong> 通常而言，可以将样本随机划分为互不相关的两组，同时施加不同策略，并可以提供量化指标衡量策略效果的，都可以进行 A/B 测试。比较典型的如政策调整，无法随机将民众划分为两部分，一部分执行新政策一部分执行旧政策，这种就不适合进行传统意义的 A/B 测试，而通常会尝试在一个城市试点新政策，通过 DID 或者 SCM 等分析方法检验效果。</p>
+<p>字节跳动的 A/B 测试平台立足于服务和支撑字节跳动内各大业务线的 A/B 测试需求，当前主要适用于算法迭代、产品演化、智慧运营等场景，未来也会随公司的脚步覆盖更多的场景。</p>
+<p><strong>InfoQ：</strong>  字节跳动的 A/B 测试平台有哪几个主要部分组成，整个平台大概经历了什么样的迭代过程？</p>
+<p><strong>王珂：</strong> 经过多年的迭代，字节跳动 A/B 测试平台由最初服务于推荐算法迭代，到现在包含 A/B 测试、配置发布、自动调参和探索实验室四大部分，覆盖了 A/B 测试的整个生命周期。</p>
+<p><strong>InfoQ：</strong>  数据采集部分，一般平台使用的是埋点或日志数据，那么字节跳动的平台是通过什么方法实现的？</p>
+<p><strong>王珂：</strong>  我们的平台也是基本基于埋点和日志数据来生产测试数据的。在字节跳动，埋点和日志数据汇集都有系统化的解决方案，使得我们的 A/B 测试平台可以比较容易的给出 A/B 测试结果。</p>
+<p><strong>InfoQ：</strong>  是否有一些测试比较复杂？字节跳动如何降低复杂性，让业务人员易于理解和使用？</p>
+<p><strong>王珂：</strong> 会遇到一些比较复杂的场景，平台也会尝试优化产品以降低使用门槛。一个比较典型的案例是算法侧的超参选择。在机器学习模型中经常会遇到一些超参，需要算法工程师凭借经验和 A/B 测试结果来调整这些超参的取值。传统做法下，算法工程师需要花几个月的时间，通过不停的 A/B 测试对比调整遴选合适的超参取值。为降低该场景的使用复杂性，字节跳动的 A/B 测试平台通过一些统计学方法，自动化的循环执行 A/B 测试，分析测试结果，预测最优解取值，协助算法工程师寻找到合适的超参，使得调参耗时由几个月缩减到几个礼拜。这也就是我们的自动调参系统。</p>
+<p><strong>InfoQ：</strong> 人们在做 A/B 测试时会犯哪些常犯的错误/陷阱？</p>
+<p><strong>王珂：</strong> 比较常见的是“连续观测”。举个夸张点的例子就是，一个 A/B 测试启动起来，使用者每天都会过来看一下是不是指标有显著正向；直到突然有一天，指标正向了，使用者开心的关掉 A/B 测试，撰写上线报告。这种连续观测，一旦显著立即决策的做法会令使用者拿到错误结论的风险大幅度上升，是不可取的。因此在字节跳动，A/B 测试使用方式的宣讲是我们需要例行去做的很重要的一个事情。</p>
+<p><strong>InfoQ：</strong> A/B 测试，可能因为不同的受众行为不同，对一家公司有效的东西不一定对另一家公司有效。那么字节跳动的 A/B 测试平台如何具备普适性？</p>
+<p><strong>王珂：</strong> 一方面，字节跳动的 A/B 测试始终以平台的方式将 A/B 测试做合理抽象，向不同的业务场景提供测试能力，考虑到公司较为复杂的产品矩阵，A/B 测试平台从诞生至今的一路迭代中始终站在 A/B 测试最基本的抽象上，以保证其普适性。</p>
+<p>另一方面，像指标体系等与业务场景关联密切的资产，我们既要考虑它可能不具备普适性，而需要做到因业务而异；也要考虑到相似的业务线可能会重复建设相似的指标体系。因此，能够“将经验复制一份”也是我们平台需要频繁考虑的东西。</p>
+<p><strong>InfoQ：</strong> A/B 测试平均耗费时长是多少？如何减少“延时”，以比较快的速度得到结果，这方面您们有哪些可供大家参考的经验？</p>
+<p><strong>王珂：</strong> 不同场景，不同目的下，A/B 测试需要进行的时间也会有比较大的差异。例如搜索算法的小流量测试是为了快速探索算法迭代的可行性，几天或几个小时便能给出有价值的结果；而产品界面的变更，为了规避所谓的新奇效应，避免有些用户出于好奇心而带来的短期指标上扬，测试可能会开启几个礼拜甚至几个月。比较典型的 A/B 测试通常会持续 1-3 个礼拜。</p>
+<p>通常而言一个 A/B 测试需要耗费多久，和 A/B 测试内容、测试设计有关。相比而言，减少一个 A/B 测试消耗的时间不如提升 A/B 测试的并发性，让系统同时容纳更多的 A/B 测试，对产品的整体迭代效率提升更加有益。</p>
+<p><strong>InfoQ：</strong> 字节跳动 A/B 测试平台有哪些未来规划？</p>
+<p><strong>王珂：</strong> 有三个比较重要的方向是我们的 A/B 测试平台在当前比较关注，在未来会加大力度投入的。</p>
+<p>一个是对 A/B 测试分析能力的更大力度支持。开 A/B 测试在字节跳动相对是比较容易的，但是 A/B 测试分析和更多有价值信息的挖掘却没有那么容易。曾经有一个测试，指标上看并没有显著的提升，然而在一个特殊的维度上我们发现了显著的效果，进一步分析推理之后我们对策略进行了调整，最后还是拿到了比较大的收益。由此可见分析能力对于测试平台而言的重要性。</p>
+<p>另一个是场景化支撑的能力。字节跳动的产品矩阵复杂度越来越高，不同的业务领域对 A/B 测试有着不同的诉求，相较于能力堆砌功能强大的巨无霸，一个清新简洁切合业务属性的系统对于业务迭代效率的提升更加有益，这也是我们架构演进的必经之路。</p>
+<p>最后一个也是最重要的一个，是方法论的探索和储备，拓宽 A/B 测试的边界，应对今天和明天我们在业务上会遇到的新问题，例如在社交领域如何更好的解决网络效应等。</p>
+<blockquote>
+<p>原文地址：https://www.infoq.cn/article/t7hcvlteucsrodrht1ff</p>
+</blockquote>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-03-15</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/a/b-test/">A/B Test</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E5%A5%BD%E6%96%87%E8%BD%AC%E8%BD%BD/spring-%E4%B8%BA%E4%BD%95%E9%9C%80%E8%A6%81%E4%B8%89%E7%BA%A7%E7%BC%93%E5%AD%98%E8%A7%A3%E5%86%B3%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E8%80%8C%E4%B8%8D%E6%98%AF%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98/" class="prev" rel="prev" title="Spring 为何需要三级缓存解决循环依赖，而不是二级缓存？"><i class="fas fa-angle-left fa-fw"></i>Spring 为何需要三级缓存解决循环依赖，而不是二级缓存？</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Just do it!
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Billy</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"search":{"algoliaAppID":"B4Q47QCNK4","algoliaIndex":"index.zh-cn","algoliaSearchKey":"f8acf4ce02e3d592053c4fb7a6c1d7b4","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

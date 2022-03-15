@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Java基础知识 - Kaze Site</title><meta name="Description" content="关于自我"><meta property="og:title" content="Java基础知识" />
+<meta property="og:description" content="请你谈谈Java中是如何支持正则表达式操作的？ Java中的String类提供了支持正则表达式操作的方法，包括：matches()、repla" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-03-02T21:57:05&#43;08:00" />
+<meta property="article:modified_time" content="2021-03-02T21:57:05&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java基础知识"/>
+<meta name="twitter:description" content="请你谈谈Java中是如何支持正则表达式操作的？ Java中的String类提供了支持正则表达式操作的方法，包括：matches()、repla"/>
+<meta name="application-name" content="Kaze">
+<meta name="apple-mobile-web-app-title" content="Kaze"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" /><link rel="next" href="http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/flume%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Java基础知识",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/posts\/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0\/java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86\/"
+        },"genre": "posts","keywords": "Java基础","wordcount":  2982 ,
+        "url": "http:\/\/example.org\/posts\/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0\/java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86\/","datePublished": "2021-03-02T21:57:05+08:00","dateModified": "2021-03-02T21:57:05+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Billy"},"author": {
+                "@type": "Person",
+                "name": "Billy"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="" header-mobile=""><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Kaze Site">Kaze Site</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/" title="GitHub"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Kaze Site">Kaze Site</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/" title="GitHub"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Java基础知识</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Billy</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw"></i>技术笔记</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-03-02">2021-03-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2982 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#请你谈谈java中是如何支持正则表达式操作的">请你谈谈Java中是如何支持正则表达式操作的？</a></li>
+    <li><a href="#请你讲讲和的区别">请你讲讲&amp;和&amp;&amp;的区别？</a></li>
+    <li><a href="#int和integer有什么区别">int和Integer有什么区别？</a></li>
+    <li><a href="#请你说明string-和stringbuffer的区别">请你说明String 和StringBuffer的区别</a></li>
+    <li><a href="#请你讲讲数组array和列表arraylist的区别什么时候应该使用array而不是arraylist">请你讲讲数组(Array)和列表(ArrayList)的区别？什么时候应该使用Array而不是ArrayList？</a></li>
+    <li><a href="#请你解释什么是值传递和引用传递">请你解释什么是值传递和引用传递？</a></li>
+    <li><a href="#请你讲讲java支持的数据类型有哪些什么是自动拆装箱">请你讲讲Java支持的数据类型有哪些？什么是自动拆装箱？</a></li>
+    <li><a href="#请你解释为什么会出现40-36040000001这种现象">请你解释为什么会出现4.0-3.6=0.40000001这种现象？</a></li>
+    <li><a href="#请你讲讲一个十进制的数在内存中是怎么存的">请你讲讲一个十进制的数在内存中是怎么存的？</a></li>
+    <li><a href="#请你说说lamda表达式的优缺点">请你说说Lamda表达式的优缺点。</a></li>
+    <li><a href="#你知道java8的新特性吗请简单介绍一下">你知道java8的新特性吗，请简单介绍一下</a></li>
+    <li><a href="#简单记录">简单记录</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="请你谈谈java中是如何支持正则表达式操作的">请你谈谈Java中是如何支持正则表达式操作的？</h2>
+<p>Java中的String类提供了支持正则表达式操作的方法，包括：matches()、replaceAll()、replaceFirst()、split()。此外，Java中可以用Pattern类表示正则表达式对象，它提供了丰富的API进行各种正则表达式操作，如：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.util.regex.Matcher</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.regex.Pattern</span><span class="o">;</span>
+<span class="kd">class</span> <span class="nc">RegExpTest</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&#34;成都市(成华区)(武侯区)(高新区)&#34;</span><span class="o">;</span>
+        <span class="n">Pattern</span> <span class="n">p</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">&#34;.*?(?=\\()&#34;</span><span class="o">);</span>
+        <span class="n">Matcher</span> <span class="n">m</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">matcher</span><span class="o">(</span><span class="n">str</span><span class="o">);</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">m</span><span class="o">.</span><span class="na">find</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">m</span><span class="o">.</span><span class="na">group</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h2 id="请你讲讲和的区别">请你讲讲&amp;和&amp;&amp;的区别？</h2>
+<p>&amp;运算符有两种用法：<strong>(1)按位与；(2)逻辑与。&amp;&amp;运算符是短路与运算</strong>。逻辑与跟短路与的差别是非常巨大的，虽然二者都要求运算符左右两端的布尔值都是true整个表达式的值才是true。&amp;&amp;之所以称为短路运算是因为，如果&amp;&amp;左边的表达式的值是false，右边的表达式会被直接短路掉，不会进行运算。很多时候我们可能都需要用&amp;&amp;而不是&amp;，例如在验证用户登录时判定用户名不是null而且不是空字符串，应当写为：username != null &amp;&amp;!username.equals(&quot;&quot;)，二者的顺序不能交换，更不能用&amp;运算符，因为第一个条件如果不成立，根本不能进行字符串的equals比较，否则会产生NullPointerException异常。</p>
+<h2 id="int和integer有什么区别">int和Integer有什么区别？</h2>
+<p>Java是一个近乎纯洁的面向对象编程语言，但是为了编程的方便还是引入了基本数据类型，但是为了能够将这些基本数据类型当成对象操作，Java为每一个基本数据类型都引入了对应的包装类型（wrapper class），int的包装类就是Integer，从Java 5开始引入了自动装箱/拆箱机制，使得二者可以相互转换。
+Java 为每个原始类型提供了包装类型：
+- 原始类型: boolean，char，byte，short，int，long，float，double
+- 包装类型：Boolean，Character，Byte，Short，Integer，Long，Float，Double</p>
+<h2 id="请你说明string-和stringbuffer的区别">请你说明String 和StringBuffer的区别</h2>
+<p>JAVA 平台提供了两个类：String和StringBuffer，它们可以储存和操作字符串，即包含多个字符的字符数据。这个String类提供了数值<strong>不可改变的字符串</strong>。而这个StringBuffer类提供的字符串进行修改。当你知道字符数据要改变的时候你就可以使用StringBuffer。典型地，你可以使用StringBuffers来动态构造字符数据。</p>
+<p>StringBuilder不是线程安全，StringBuffer是线程安全的</p>
+<h2 id="请你讲讲数组array和列表arraylist的区别什么时候应该使用array而不是arraylist">请你讲讲数组(Array)和列表(ArrayList)的区别？什么时候应该使用Array而不是ArrayList？</h2>
+<p>Array和ArrayList的不同点：</p>
+<p>Array可以包含基本类型和对象类型，ArrayList只能包含对象类型。
+Array大小是固定的，ArrayList的大小是动态变化的。
+ArrayList提供了更多的方法和特性，比如：addAll()，removeAll()，iterator()等等。
+对于基本类型数据，集合使用自动装箱来减少编码工作量。但是，当处理固定大小的基本数据类型的时候，这种方式相对比较慢。</p>
+<h2 id="请你解释什么是值传递和引用传递">请你解释什么是值传递和引用传递？</h2>
+<p>值传递是对基本型变量而言的,传递的是该变量的一个副本,改变副本不影响原变量.
+引用传递一般是对于对象型变量而言的,传递的是该对象地址的一个副本, 并不是原对象本身 。 所以对引用对象进行操作会同时改变原对象.
+一般认为,java内的传递都是值传递.</p>
+<p>理解：https://blog.csdn.net/w372426096/article/details/82216742</p>
+<p>你有一把钥匙，当你的朋友想要去你家的时候，如果你直接把你的钥匙给他了，这就是引用传递。这种情况下，如果他对这把钥匙做了什么事情，比如他在钥匙上刻下了自己名字，那么这把钥匙还给你的时候，你自己的钥匙上也会多出他刻的名字。</p>
+<p>你有一把钥匙，当你的朋友想要去你家的时候，你复刻了一把新钥匙给他，自己的还在自己手里，这就是值传递。这种情况下，他对这把钥匙做什么都不会影响你手里的这把钥匙。</p>
+<p>但是，不管上面哪种情况，你的朋友拿着你给他的钥匙，进到你的家里，把你家的电视砸了。那你说你会不会受到影响？而我们在pass方法中，改变user对象的name属性的值的时候，不就是在“砸电视”么。你改变的不是那把钥匙，而是钥匙打开的房子。</p>
+<h2 id="请你讲讲java支持的数据类型有哪些什么是自动拆装箱">请你讲讲Java支持的数据类型有哪些？什么是自动拆装箱？</h2>
+<p>Java语言支持的8种基本数据类型是：
+byte
+short
+int
+long
+float
+double
+boolean
+char
+自动装箱是Java编译器在基本数据类型和对应的对象包装类型之间做的一个转化。比如：把int转化成Integer，double转化成Double，等等。反之就是自动拆箱。</p>
+<p>[1] Java基本数据类型总结：https://www.cnblogs.com/doit8791/archive/2012/05/25/2517448.html</p>
+<h2 id="请你解释为什么会出现40-36040000001这种现象">请你解释为什么会出现4.0-3.6=0.40000001这种现象？</h2>
+<p>原因简单来说是这样：2进制的小数无法精确的表达10进制小数，计算机在计算10进制小数的过程中要先转换为2进制进行计算，这个过程中出现了误差。</p>
+<h2 id="请你讲讲一个十进制的数在内存中是怎么存的">请你讲讲一个十进制的数在内存中是怎么存的？</h2>
+<p>补码的形式。</p>
+<h2 id="请你说说lamda表达式的优缺点">请你说说Lamda表达式的优缺点。</h2>
+<p>优点：1. 简洁。2. 非常容易并行计算。3. 可能代表未来的编程趋势。</p>
+<p>缺点：1. 若不用并行计算，很多时候计算速度没有比传统的 for 循环快。（并行计算有时需要预热才显示出效率优势）2. 不容易调试。3. 若其他程序员没有学过 lambda 表达式，代码不容易让其他语言的程序员看懂。</p>
+<p>JAVA8-lambda表达式-并行流，提升效率的利器？https://blog.csdn.net/weigeshikebi/article/details/80030312</p>
+<h2 id="你知道java8的新特性吗请简单介绍一下">你知道java8的新特性吗，请简单介绍一下</h2>
+<p><strong>Lambda 表达式</strong> − Lambda允许把函数作为一个方法的参数（函数作为参数传递进方法中。</p>
+<p><strong>方法引用</strong>− 方法引用提供了非常有用的语法，可以直接引用已有Java类或对象（实例）的方法或构造器。与lambda联合使用，方法引用可以使语言的构造更紧凑简洁，减少冗余代码。</p>
+<p><strong>默认方法</strong>− 默认方法就是一个在接口里面有了一个实现的方法。</p>
+<p><strong>Stream API</strong> −新添加的Stream API（java.util.stream） 把真正的函数式编程风格引入到Java中。</p>
+<p><strong>Date Time API</strong> − 加强对日期与时间的处理。</p>
+<p><strong>Optional 类</strong> − Optional 类已经成为 Java 8 类库的一部分，<strong>用来解决空指针异常</strong>。</p>
+<p>新工具− 新的编译工具，如：Nashorn引擎 jjs、 类依赖分析器jdeps。</p>
+<p>Nashorn, JavaScript 引擎 − Java 8提供了一个新的Nashorn javascript引擎，它允许我们在JVM上运行特定的javascript应用。</p>
+<h2 id="简单记录">简单记录</h2>
+<p>JIT：just time 即时编译编译器</p>
+<p>深入浅出 JIT 编译器：https://developer.ibm.com/zh/articles/j-lo-just-in-time/</p>
+<p>HHVM：HipHop Virtual Machine 是Facebook 开发的高性能PHP 虚拟机，宣称比官方的快9倍</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-03-02</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/java%E5%9F%BA%E7%A1%80/">Java基础</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+            <a href="/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/flume%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/" class="next" rel="next" title="Flume快速上手">Flume快速上手<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Just do it!
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Billy</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"search":{"algoliaAppID":"B4Q47QCNK4","algoliaIndex":"index.zh-cn","algoliaSearchKey":"f8acf4ce02e3d592053c4fb7a6c1d7b4","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
