@@ -17,5 +17,12 @@
     <author>作者</author>
     <guid>http://example.org/posts/%E7%A7%91%E7%A0%94/transformer%E6%A6%82%E8%BF%B0/</guid>
     <description><![CDATA[Seq2seq 编码器—解码器（encoder-decoder）或者seq2seq模型，这两个模型本质上都用到了两个循环神经网络，分别叫做编码器和解码器。]]></description>
+</item><item>
+    <title>经典CNN模型对比</title>
+    <link>http://example.org/posts/%E7%A7%91%E7%A0%94/%E7%BB%8F%E5%85%B8cnn%E6%A8%A1%E5%9E%8B%E5%AF%B9%E6%AF%94/</link>
+    <pubDate>Fri, 24 Sep 2021 15:20:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/posts/%E7%A7%91%E7%A0%94/%E7%BB%8F%E5%85%B8cnn%E6%A8%A1%E5%9E%8B%E5%AF%B9%E6%AF%94/</guid>
+    <description><![CDATA[LeNet LeNet( (conv): Sequential( (0): Conv2d(1, 6, kernel_size=(5, 5), stride=(1, 1)) (1): Sigmoid() (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False) (3): Conv2d(6, 16, kernel_size=(5, 5), stride=(1, 1)) (4): Sigmoid() (5): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False) ) (fc): Sequential( (0): Linear(in_features=256, out_features=120, bias=True) (1): Sigmoid() (2): Linear(in_features=120, out_features=84, bias=True) (3): Sigmoid() (4): Linear(in_features=84, out_features=10, bias=True) ) ) AlexNet AlexNet( (conv): Sequential( (0): Conv2d(1, 96, kernel_size=(11, 11), stride=(4, 4)) (1): ReLU() (2): MaxPool2d(kernel_size=3,]]></description>
 </item></channel>
 </rss>
