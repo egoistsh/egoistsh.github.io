@@ -3,10 +3,17 @@
         <title>Categories - 分类 - Kaze Site</title>
         <link>http://example.org/categories/</link>
         <description>Categories - 分类 - Kaze Site</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 15 Mar 2022 10:20:04 &#43;0800</lastBuildDate><atom:link href="http://example.org/categories/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 21 Mar 2022 15:22:54 &#43;0800</lastBuildDate><atom:link href="http://example.org/categories/" rel="self" type="application/rss+xml" /><item>
+    <title>生活</title>
+    <link>http://example.org/categories/%E7%94%9F%E6%B4%BB/</link>
+    <pubDate>Mon, 21 Mar 2022 15:22:54 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/categories/%E7%94%9F%E6%B4%BB/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
     <title>好文转载</title>
     <link>http://example.org/categories/%E5%A5%BD%E6%96%87%E8%BD%AC%E8%BD%BD/</link>
-    <pubDate>Tue, 15 Mar 2022 10:20:04 &#43;0800</pubDate>
+    <pubDate>Mon, 21 Mar 2022 10:20:04 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://example.org/categories/%E5%A5%BD%E6%96%87%E8%BD%AC%E8%BD%BD/</guid>
     <description><![CDATA[]]></description>
@@ -16,13 +23,6 @@
     <pubDate>Sun, 20 Feb 2022 21:38:51 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://example.org/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>生活</title>
-    <link>http://example.org/categories/%E7%94%9F%E6%B4%BB/</link>
-    <pubDate>Tue, 11 Jan 2022 15:22:54 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://example.org/categories/%E7%94%9F%E6%B4%BB/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>科研</title>
