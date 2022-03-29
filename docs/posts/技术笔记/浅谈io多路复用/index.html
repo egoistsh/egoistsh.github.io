@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>浅谈IO多路复用 - Kaze Site</title><meta name="Description" content="关于自我"><meta property="og:title" content="浅谈IO多路复用" />
+<meta property="og:description" content="阻塞IO 服务端处理客户端的连接和请求主要阻塞在2个地方： accept()：阻塞建立连接 read()：阻塞读数据 网卡到内核缓冲区阻塞 内核缓冲区" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%B5%85%E8%B0%88io%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-29T21:00:51&#43;08:00" />
+<meta property="article:modified_time" content="2022-03-29T21:00:51&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="浅谈IO多路复用"/>
+<meta name="twitter:description" content="阻塞IO 服务端处理客户端的连接和请求主要阻塞在2个地方： accept()：阻塞建立连接 read()：阻塞读数据 网卡到内核缓冲区阻塞 内核缓冲区"/>
+<meta name="application-name" content="Kaze">
+<meta name="apple-mobile-web-app-title" content="Kaze"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%B5%85%E8%B0%88io%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" /><link rel="prev" href="http://example.org/posts/%E7%94%9F%E6%B4%BB/%E5%A4%A7%E5%AE%B6%E7%9A%84%E6%97%A5%E6%9C%AC-%E7%AC%AC1%E8%AF%BE%E7%AC%94%E8%AE%B0/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "浅谈IO多路复用",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/posts\/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0\/%E6%B5%85%E8%B0%88io%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8\/"
+        },"genre": "posts","keywords": "IO","wordcount":  1126 ,
+        "url": "http:\/\/example.org\/posts\/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0\/%E6%B5%85%E8%B0%88io%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8\/","datePublished": "2022-03-29T21:00:51+08:00","dateModified": "2022-03-29T21:00:51+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Billy"},"author": {
+                "@type": "Person",
+                "name": "Billy"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="" header-mobile=""><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Kaze Site">Kaze Site</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/" title="GitHub"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Kaze Site">Kaze Site</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/" title="GitHub"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">浅谈IO多路复用</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Billy</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw"></i>技术笔记</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-29">2022-03-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1126 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#阻塞io">阻塞IO</a></li>
+    <li><a href="#非阻塞io">非阻塞IO</a></li>
+    <li><a href="#io多路复用">IO多路复用</a>
+      <ul>
+        <li><a href="#select">select</a></li>
+        <li><a href="#poll">poll</a></li>
+        <li><a href="#epoll">epoll</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考文章">参考文章</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="阻塞io">阻塞IO</h2>
+<p>服务端处理客户端的连接和请求主要阻塞在2个地方：</p>
+<ul>
+<li>accept()：阻塞建立连接</li>
+<li>read()：阻塞读数据
+<ul>
+<li>网卡到内核缓冲区阻塞</li>
+<li>内核缓冲区到用户缓冲区阻塞</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// old
+</span><span class="c1"></span><span class="n">listenfd</span> <span class="o">=</span> <span class="n">socket</span><span class="o">();</span>   <span class="c1">// 打开一个网络通信端口
+</span><span class="c1"></span><span class="n">bind</span><span class="o">(</span><span class="n">listenfd</span><span class="o">);</span>        <span class="c1">// 绑定
+</span><span class="c1"></span><span class="n">listen</span><span class="o">(</span><span class="n">listenfd</span><span class="o">);</span>      <span class="c1">// 监听
+</span><span class="c1"></span><span class="k">while</span><span class="o">(</span><span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">connfd</span> <span class="o">=</span> <span class="n">accept</span><span class="o">(</span><span class="n">listenfd</span><span class="o">);</span>  <span class="c1">// 阻塞建立连接
+</span><span class="c1"></span>  <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">read</span><span class="o">(</span><span class="n">connfd</span><span class="o">,</span> <span class="n">buf</span><span class="o">);</span>  <span class="c1">// 阻塞读数据
+</span><span class="c1"></span>  <span class="n">doSomeThing</span><span class="o">(</span><span class="n">buf</span><span class="o">);</span>  <span class="c1">// 利用读到的数据做些什么
+</span><span class="c1"></span>  <span class="n">close</span><span class="o">(</span><span class="n">connfd</span><span class="o">);</span>     <span class="c1">// 关闭连接，循环等待下一个连接
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></div><p>改进：采用多线程，为每个客户端创建一个线程。但此时的read()还是阻塞的。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 改进
+</span><span class="c1"></span><span class="k">while</span><span class="o">(</span><span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">connfd</span> <span class="o">=</span> <span class="n">accept</span><span class="o">(</span><span class="n">listenfd</span><span class="o">);</span>
+  <span class="n">thread_create</span><span class="o">(</span><span class="n">dowork</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="kt">void</span> <span class="nf">dowork</span><span class="o">()</span> <span class="o">{</span>
+  <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">read</span><span class="o">(</span><span class="n">connfd</span><span class="o">,</span> <span class="n">buf</span><span class="o">);</span>
+  <span class="n">dosomething</span><span class="o">(</span><span class="n">buf</span><span class="o">);</span>
+  <span class="n">close</span><span class="o">(</span><span class="n">connfd</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><h2 id="非阻塞io">非阻塞IO</h2>
+<p>要实现非阻塞IO需要操作系统提供一个非阻塞的read()：在没有数据到达时，立即返回-1（非阻塞）；当数据已到达内核缓冲区时，调用read()还是阻塞的。</p>
+<p>改进：为每个客户端创建一个线程，服务器线程资源很快会被耗尽。可以每accept一个客户端连接后，将文件描述符放到一个数组中。然后通过一个线程不断遍历这个数组，调用每一个非阻塞的read方法。这样就成功只用一个线程处理了多个客户端连接。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">while</span><span class="o">(</span><span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">for</span><span class="o">(</span><span class="n">fd</span> <span class="o">&lt;--</span> <span class="n">fdlist</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">read</span><span class="o">(</span><span class="n">fd</span><span class="o">)</span> <span class="o">!=</span> <span class="o">-</span><span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">doSomeThing</span><span class="o">();</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>但每次遍历遇到 read 返回 -1 时仍然是一次浪费资源的系统调用。</p>
+<h2 id="io多路复用">IO多路复用</h2>
+<p>让操作系统提供函数，将一批文件描述符通过系统调用传给内核，由内核去遍历。</p>
+<h3 id="select">select</h3>
+<p>select 是操作系统提供的系统调用函数，通过它，我们可以把一个文件描述符的数组发给操作系统， 让操作系统去遍历，确定哪个文件描述符可以读写， 然后告诉我们去处理。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//一个线程不断接受客户端连接，并把 socket 文件描述符放到一个 list 里
+</span><span class="c1"></span><span class="k">while</span><span class="o">(</span><span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">connfd</span> <span class="o">=</span> <span class="n">accept</span><span class="o">(</span><span class="n">listenfd</span><span class="o">);</span>
+  <span class="n">fcntl</span><span class="o">(</span><span class="n">connfd</span><span class="o">,</span> <span class="n">F_SETFL</span><span class="o">,</span> <span class="n">O_NONBLOCK</span><span class="o">);</span>
+  <span class="n">fdlist</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">connfd</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="c1">//一个线程不再自己遍历，而是调用 select，将这批文件描述符 list 交给操作系统去遍历。
+</span><span class="c1"></span><span class="k">while</span><span class="o">(</span><span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">nready</span> <span class="o">=</span> <span class="n">select</span><span class="o">(</span><span class="n">list</span><span class="o">);</span>
+  <span class="c1">// 用户层依然要遍历，只不过少了很多无效的系统调用
+</span><span class="c1"></span>  <span class="k">for</span><span class="o">(</span><span class="n">fd</span> <span class="o">&lt;--</span> <span class="n">fdlist</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">fd</span> <span class="o">!=</span> <span class="o">-</span><span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+      <span class="c1">// 只读已就绪的文件描述符
+</span><span class="c1"></span>      <span class="n">read</span><span class="o">(</span><span class="n">fd</span><span class="o">,</span> <span class="n">buf</span><span class="o">);</span>
+      <span class="c1">// 总共只有 nready 个已就绪描述符，不用过多遍历
+</span><span class="c1"></span>      <span class="k">if</span><span class="o">(--</span><span class="n">nready</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="k">break</span><span class="o">;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>细节（缺点）：</p>
+<ol>
+<li>
+<p>select 调用需要传入 fd 数组，需要拷贝一份到内核，高并发场景下这样的拷贝消耗的资源是惊人的。</p>
+</li>
+<li>
+<p>select 在内核层仍然是通过遍历的方式检查文件描述符的就绪状态，是个同步过程，只不过无系统调用切换上下文的开销。</p>
+</li>
+<li>
+<p>select 仅仅返回可读文件描述符的个数，具体哪个可读还是要用户自己遍历。</p>
+</li>
+</ol>
+<h3 id="poll">poll</h3>
+<p>poll 基于链表存储，解决了select最大连接数（1024）的限制。</p>
+<h3 id="epoll">epoll</h3>
+<p>解决select/poll的问题：</p>
+<ol>
+<li>
+<p>内核中保存一份文件描述符集合，无需用户每次都重新传入，只需告诉内核修改的部分即可。</p>
+</li>
+<li>
+<p>内核不再通过轮询的方式找到就绪的文件描述符，而是通过异步 IO 事件唤醒。</p>
+</li>
+<li>
+<p>内核仅会将有 IO 事件的文件描述符返回给用户，用户也无需遍历整个文件描述符集合。</p>
+</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//创建一个 epoll 句柄
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">epoll_create</span><span class="o">(</span><span class="kt">int</span> <span class="n">size</span><span class="o">);</span>
+<span class="c1">//向内核添加、修改或删除要监控的文件描述符。
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">epoll_ctl</span><span class="o">(</span><span class="kt">int</span> <span class="n">epfd</span><span class="o">,</span> <span class="kt">int</span> <span class="n">op</span><span class="o">,</span> <span class="kt">int</span> <span class="n">fd</span><span class="o">,</span> <span class="n">struct</span> <span class="n">epoll_event</span> <span class="o">*</span><span class="n">event</span><span class="o">);</span>
+<span class="c1">//类似发起了 select() 调用
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">epoll_wait</span><span class="o">(</span><span class="kt">int</span> <span class="n">epfd</span><span class="o">,</span> <span class="n">struct</span> <span class="n">epoll_event</span> <span class="o">*</span><span class="n">events</span><span class="o">,</span> <span class="kt">int</span> <span class="n">max</span> <span class="n">events</span><span class="o">,</span> <span class="kt">int</span> <span class="n">timeout</span><span class="o">);</span>
+</code></pre></div><h2 id="参考文章">参考文章</h2>
+<ol>
+<li><a href="https://mp.weixin.qq.com/s/YdIdoZ_yusVWza1PU7lWaw?utm_source=wechat_session&amp;utm_medium=social&amp;utm_oi=663552570581323776" target="_blank" rel="noopener noreffer">你管这破玩意叫 IO 多路复用？</a></li>
+<li><a href="https://juejin.cn/post/6882984260672847879#heading-11" target="_blank" rel="noopener noreffer">彻底理解 IO 多路复用实现机制</a></li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-03-29</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/io/">IO</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E7%94%9F%E6%B4%BB/%E5%A4%A7%E5%AE%B6%E7%9A%84%E6%97%A5%E6%9C%AC-%E7%AC%AC1%E8%AF%BE%E7%AC%94%E8%AE%B0/" class="prev" rel="prev" title="《大家的日本》-第1课笔记"><i class="fas fa-angle-left fa-fw"></i>《大家的日本》-第1课笔记</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Just do it!
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Billy</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"search":{"algoliaAppID":"B4Q47QCNK4","algoliaIndex":"index.zh-cn","algoliaSearchKey":"f8acf4ce02e3d592053c4fb7a6c1d7b4","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

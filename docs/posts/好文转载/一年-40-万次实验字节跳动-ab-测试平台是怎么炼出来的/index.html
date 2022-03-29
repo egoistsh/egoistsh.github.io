@@ -6,7 +6,7 @@
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>一年 40 万次实验，字节跳动 A/B 测试平台是怎么炼出来的？ - Kaze Site</title><meta name="Description" content="关于自我"><meta property="og:title" content="一年 40 万次实验，字节跳动 A/B 测试平台是怎么炼出来的？" />
-<meta property="og:description" content="原文地址：https://www.infoq.cn/article/t7hcvlteucsrodrht1ff 2012 年，刚刚建立的字节跳动便开启了" />
+<meta property="og:description" content="2012 年，刚刚建立的字节跳动便开启了 A/B 测试之旅，随着今日头条、抖音、西瓜视频等全线业务的使用，将 A/B 测试应用在产品命名、交互设计、推荐算法、用户增" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/posts/%E5%A5%BD%E6%96%87%E8%BD%AC%E8%BD%BD/%E4%B8%80%E5%B9%B4-40-%E4%B8%87%E6%AC%A1%E5%AE%9E%E9%AA%8C%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8-ab-%E6%B5%8B%E8%AF%95%E5%B9%B3%E5%8F%B0%E6%98%AF%E6%80%8E%E4%B9%88%E7%82%BC%E5%87%BA%E6%9D%A5%E7%9A%84/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-03-15T10:20:04&#43;08:00" />
@@ -14,7 +14,7 @@
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="一年 40 万次实验，字节跳动 A/B 测试平台是怎么炼出来的？"/>
-<meta name="twitter:description" content="原文地址：https://www.infoq.cn/article/t7hcvlteucsrodrht1ff 2012 年，刚刚建立的字节跳动便开启了"/>
+<meta name="twitter:description" content="2012 年，刚刚建立的字节跳动便开启了 A/B 测试之旅，随着今日头条、抖音、西瓜视频等全线业务的使用，将 A/B 测试应用在产品命名、交互设计、推荐算法、用户增"/>
 <meta name="application-name" content="Kaze">
 <meta name="apple-mobile-web-app-title" content="Kaze"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -112,10 +112,7 @@
                     <span><i class="details-icon fas fa-angle-right"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
-            </div><div class="content" id="content"><blockquote>
-<p>原文地址：https://www.infoq.cn/article/t7hcvlteucsrodrht1ff</p>
-</blockquote>
-<p>2012 年，刚刚建立的字节跳动便开启了 A/B 测试之旅，随着今日头条、抖音、西瓜视频等全线业务的使用，将 A/B 测试应用在产品命名、交互设计、推荐算法、用户增长、广告优化和市场活动等各方面决策上。据今年 4 月字节跳动旗下火山引擎技术开放日上透露的数据显示，字节跳动每天同时进行的 A/B 测试达到上万场，单日新增实验数量超过 1500 个，覆盖 400 多项业务。随着公司发展，这些数字还在不断扩大，仅最近一年就已经做了 40 万次 A/B 测试。</p>
+            </div><div class="content" id="content"><p>2012 年，刚刚建立的字节跳动便开启了 A/B 测试之旅，随着今日头条、抖音、西瓜视频等全线业务的使用，将 A/B 测试应用在产品命名、交互设计、推荐算法、用户增长、广告优化和市场活动等各方面决策上。据今年 4 月字节跳动旗下火山引擎技术开放日上透露的数据显示，字节跳动每天同时进行的 A/B 测试达到上万场，单日新增实验数量超过 1500 个，覆盖 400 多项业务。随着公司发展，这些数字还在不断扩大，仅最近一年就已经做了 40 万次 A/B 测试。</p>
 <p>那么在字节跳动里，支撑这些测试的技术平台是怎么炼出来的？我们采访了字节跳动 A/B 实验平台技术负责人王珂，通过他的回复我们可以得到一个初步的了解。王珂将在 2021 年 10 月 21-23 日<a href="https://qcon.infoq.cn/2021/shanghai/" target="_blank" rel="noopener noreffer">QCon上海站</a>分享主题为《<a href="https://qcon.infoq.cn/2021/shanghai/presentation/3861" target="_blank" rel="noopener noreffer">字节跳动 A/B 测试平台演进历史及实践</a>》的演讲，更多内容可以通过观看演讲进行了解。</p>
 <p><strong>嘉宾简介：王珂</strong>，字节跳动 A/B 实验平台技术负责人。目前就职于字节跳动数据平台，负责内部 A/B 实验平台的研发，支撑内部各个业务线的 A/B 实验需求，在 A/B 实验领域有比较深入的理解。曽经任职于亚马逊中国库存健康优化团队，有多年大数据及服务架构经验。</p>
 <p><strong>InfoQ：</strong> 有说法是目前这种形式的 A/B 测试最早出现于 1990 年代，您认为其核心原理这么多年是否有改变？</p>
@@ -144,6 +141,9 @@
 <p>一个是对 A/B 测试分析能力的更大力度支持。开 A/B 测试在字节跳动相对是比较容易的，但是 A/B 测试分析和更多有价值信息的挖掘却没有那么容易。曾经有一个测试，指标上看并没有显著的提升，然而在一个特殊的维度上我们发现了显著的效果，进一步分析推理之后我们对策略进行了调整，最后还是拿到了比较大的收益。由此可见分析能力对于测试平台而言的重要性。</p>
 <p>另一个是场景化支撑的能力。字节跳动的产品矩阵复杂度越来越高，不同的业务领域对 A/B 测试有着不同的诉求，相较于能力堆砌功能强大的巨无霸，一个清新简洁切合业务属性的系统对于业务迭代效率的提升更加有益，这也是我们架构演进的必经之路。</p>
 <p>最后一个也是最重要的一个，是方法论的探索和储备，拓宽 A/B 测试的边界，应对今天和明天我们在业务上会遇到的新问题，例如在社交领域如何更好的解决网络效应等。</p>
+<blockquote>
+<p>原文地址：https://www.infoq.cn/article/t7hcvlteucsrodrht1ff</p>
+</blockquote>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">

@@ -6,7 +6,7 @@
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>一次线上线程池任务问题处理历程 - Kaze Site</title><meta name="Description" content="关于自我"><meta property="og:title" content="一次线上线程池任务问题处理历程" />
-<meta property="og:description" content="原文地址：https://xiaomi-info.github.io/2019/12/19/theadpool-rejected-task/" />
+<meta property="og:description" content="一、前言 在一次新功能上线过程中，出现线程池提交任务抛出 RejectedExecutionException 异常，即任务提交执行了拒绝策略的操作。查看业务情况和线程池配置，发现并行执行的任务数" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/posts/%E5%A5%BD%E6%96%87%E8%BD%AC%E8%BD%BD/%E4%B8%80%E6%AC%A1%E7%BA%BF%E4%B8%8A%E7%BA%BF%E7%A8%8B%E6%B1%A0%E4%BB%BB%E5%8A%A1%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86%E5%8E%86%E7%A8%8B/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-03-21T10:20:04&#43;08:00" />
@@ -14,7 +14,7 @@
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="一次线上线程池任务问题处理历程"/>
-<meta name="twitter:description" content="原文地址：https://xiaomi-info.github.io/2019/12/19/theadpool-rejected-task/"/>
+<meta name="twitter:description" content="一、前言 在一次新功能上线过程中，出现线程池提交任务抛出 RejectedExecutionException 异常，即任务提交执行了拒绝策略的操作。查看业务情况和线程池配置，发现并行执行的任务数"/>
 <meta name="application-name" content="Kaze">
 <meta name="apple-mobile-web-app-title" content="Kaze"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -158,10 +158,7 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><blockquote>
-<p>原文地址：https://xiaomi-info.github.io/2019/12/19/theadpool-rejected-task/</p>
-</blockquote>
-<h2 id="一前言">一、前言</h2>
+            </div><div class="content" id="content"><h2 id="一前言">一、前言</h2>
 <p>在一次新功能上线过程中，出现线程池提交任务抛出 RejectedExecutionException 异常，即任务提交执行了拒绝策略的操作。查看业务情况和线程池配置，发现并行执行的任务数是小于线程池最大线程数的，为此展开了一次线程池问题排查历程。</p>
 <h2 id="二业务情景">二、业务情景</h2>
 <h3 id="21-任务描述">2.1. 任务描述</h3>
@@ -534,6 +531,9 @@
         title="image-20220321222750584" /></p>
 <h3 id="92-根据业务情况配置阻塞队列">9.2. 根据业务情况配置阻塞队列</h3>
 <p>对于我们的业务情况，因为任务最多只有 15 个，将阻塞队列大小设置为 15，这样就保证了不会出现任务被拒绝。</p>
+<blockquote>
+<p>原文地址：https://xiaomi-info.github.io/2019/12/19/theadpool-rejected-task/</p>
+</blockquote>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">

@@ -5,7 +5,6 @@ categories: ["好文转载"]
 tags: ["spring"]
 ---
 
-> 原文地址：https://www.cnblogs.com/semi-sub/p/13548479.html
 
 ## **前言**
 
@@ -119,3 +118,4 @@ singletonFactory是传入的一个匿名内部类，调用ObjectFactory.getObjec
 
 在工作中，一直认为编程代码不是最重要的，重要的是在工作中所养成的编程思维。
 
+> 原文地址：https://www.cnblogs.com/semi-sub/p/13548479.html
