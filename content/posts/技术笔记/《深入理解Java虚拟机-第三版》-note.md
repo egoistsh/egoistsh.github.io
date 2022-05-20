@@ -1,5 +1,5 @@
 ---
-title: "《深入理解Java虚拟机-第三版》-阅读笔记"
+title: "《深入理解Java虚拟机-第三版》-note"
 date: 2022-04-09T13:48:04+08:00
 categories: ["技术笔记"]
 tags: ["JVM"]
