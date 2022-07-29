@@ -8,7 +8,7 @@ hugo -d docs # if using a theme, replace with `hugo -t <YOURTHEME>`
 #git add docs
 git add .
 # Commit changes.
-msg="rebuilding site $(date +'%Y/%m/%d %H:%M:%S')"
+msg="chore: rebuilding site $(date +'%Y/%m/%d %H:%M:%S')"
 if [ -n "$*" ]; then
 	msg="$*"
 fi

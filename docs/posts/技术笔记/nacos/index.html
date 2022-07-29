@@ -5,30 +5,30 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Flume快速上手 - Kaze Site</title><meta name="Description" content="关于自我"><meta property="og:title" content="Flume快速上手" />
-<meta property="og:description" content="本文旨在提供一个快速上手Flume的教程，内容上麻雀虽小但五脏俱全. 什么是Flume Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. Flume 是一种分布式、可" />
+        <title>Nacos - Kaze Site</title><meta name="Description" content="关于自我"><meta property="og:title" content="Nacos" />
+<meta property="og:description" content="服务治理的关键任务就是：服务注册和服务发现。Nacos 就是一个中心化的服务注册中心。 异常容错机制：业界通常的解决方案是“heartbeat”" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/flume%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-06-01T23:38:28&#43;08:00" />
-<meta property="article:modified_time" content="2021-06-01T23:38:28&#43;08:00" />
+<meta property="og:url" content="http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/nacos/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-05-23T14:11:30&#43;08:00" />
+<meta property="article:modified_time" content="2022-05-23T14:11:30&#43;08:00" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Flume快速上手"/>
-<meta name="twitter:description" content="本文旨在提供一个快速上手Flume的教程，内容上麻雀虽小但五脏俱全. 什么是Flume Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. Flume 是一种分布式、可"/>
+<meta name="twitter:title" content="Nacos"/>
+<meta name="twitter:description" content="服务治理的关键任务就是：服务注册和服务发现。Nacos 就是一个中心化的服务注册中心。 异常容错机制：业界通常的解决方案是“heartbeat”"/>
 <meta name="application-name" content="Kaze">
 <meta name="apple-mobile-web-app-title" content="Kaze"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/flume%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/" /><link rel="prev" href="http://example.org/posts/%E7%94%9F%E6%B4%BB/temp/" /><link rel="next" href="http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/nacos/" /><link rel="prev" href="http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-%E7%AC%AC%E4%B8%89%E7%89%88-note/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "Flume快速上手",
+        "headline": "Nacos",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "http:\/\/example.org\/posts\/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0\/flume%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B\/"
-        },"genre": "posts","keywords": "Flume","wordcount":  840 ,
-        "url": "http:\/\/example.org\/posts\/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0\/flume%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B\/","datePublished": "2021-06-01T23:38:28+08:00","dateModified": "2021-06-01T23:38:28+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@id": "http:\/\/example.org\/posts\/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0\/nacos\/"
+        },"genre": "posts","keywords": "Spring Cloud","wordcount":  1008 ,
+        "url": "http:\/\/example.org\/posts\/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0\/nacos\/","datePublished": "2022-05-23T14:11:30+08:00","dateModified": "2022-05-23T14:11:30+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Billy"},"author": {
                 "@type": "Person",
@@ -102,10 +102,10 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">Flume快速上手</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animated flipInX">Nacos</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Billy</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw"></i>技术笔记</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-06-01">2021-06-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 840 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-23">2022-05-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1008 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -113,104 +113,64 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#安装针对linux">安装（针对Linux）</a></li>
-    <li><a href="#使用">使用</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#source">source</a></li>
-    <li><a href="#channel">channel</a></li>
-    <li><a href="#sink">sink</a></li>
+    <li><a href="#nacos-自动装配原理">Nacos 自动装配原理</a></li>
+    <li><a href="#nacos-服务发现的底层原理">Nacos 服务发现的底层原理</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>本文旨在提供一个快速上手Flume的教程，内容上麻雀虽小但五脏俱全.</p>
-<h1 id="什么是flume">什么是Flume</h1>
-<blockquote>
-<p>Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data.</p>
-</blockquote>
-<p>Flume 是一种分布式、可靠且可用的服务，用于高效地收集、聚合和移动大量日志数据。由此可见，flume的应用场景是处理大量的日志数据。</p>
+            </div><div class="content" id="content"><p>服务治理的关键任务就是：服务注册和服务发现。Nacos 就是一个中心化的服务注册中心。</p>
+<p>异常容错机制：业界通常的解决方案是“heartbeat”。每个节点每隔一段时间想注册中心同步自己当前的状态。如果注册中心很长一段时间没有收到 Client 的心跳包，就会标记这个节点为下线状态，将其剔除服务列表。</p>
+<p>Nacos 的数据模型有三个层次：Namespace、Group、Service/DataId，依次包含。通过 Namespace + Group + Service/DataId，可以精确定位到一个具体的微服务。通过 Namespace 可以做到环境隔离或者多租户隔离。</p>
+<p>Nacos 核心功能有两个：</p>
+<ul>
+<li>Naming Service 服务发现</li>
+<li>Config Service ：提供配置管理、动态更新配置和元数据的功能</li>
+</ul>
+<p>Nacos 基本架构：</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1dfc4010ed684fd2aa153572a52ba24a~tplv-k3u1fbpfcp-watermark.image"
-        data-srcset="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1dfc4010ed684fd2aa153572a52ba24a~tplv-k3u1fbpfcp-watermark.image, https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1dfc4010ed684fd2aa153572a52ba24a~tplv-k3u1fbpfcp-watermark.image 1.5x, https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1dfc4010ed684fd2aa153572a52ba24a~tplv-k3u1fbpfcp-watermark.image 2x"
+        data-src="https://tva1.sinaimg.cn/large/e6c9d24ely1h4gud2rvfdj21e20my793.jpg"
+        data-srcset="https://tva1.sinaimg.cn/large/e6c9d24ely1h4gud2rvfdj21e20my793.jpg, https://tva1.sinaimg.cn/large/e6c9d24ely1h4gud2rvfdj21e20my793.jpg 1.5x, https://tva1.sinaimg.cn/large/e6c9d24ely1h4gud2rvfdj21e20my793.jpg 2x"
         data-sizes="auto"
-        alt="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1dfc4010ed684fd2aa153572a52ba24a~tplv-k3u1fbpfcp-watermark.image"
-        title="image.png" /></p>
-<p>其中框框部分就是Flume。<br>
-由Source、Channel、Sink三个核心组件组成。整体构成一个Agent。</p>
-<p>名词解释：</p>
+        alt="https://tva1.sinaimg.cn/large/e6c9d24ely1h4gud2rvfdj21e20my793.jpg"
+        title="image-20220723142531385" /></p>
+<p>Nacos 内部支持两种一致性协议：</p>
 <ul>
-<li>Source：是负责接受数据到Agent的组件。</li>
-<li>Channel：位于Source和Sink之间的缓冲区。</li>
-<li>Sink：负责将事件从从Channel写入到其他地方。可以是另一个Agent也可以是存储系统。</li>
-<li>Event：Flume以事件的形式传递数据。</li>
+<li>Raft：侧重一致性</li>
+<li>Distro：侧重可用性，保证最终一致性</li>
 </ul>
-<h1 id="一个例子">一个例子</h1>
-<h2 id="安装针对linux">安装（针对Linux）</h2>
+<h2 id="nacos-自动装配原理">Nacos 自动装配原理</h2>
+<p>Nacos 通过Spring Boot 的自动装配功能加载配置项并开启服务注册。Spring Cloud 各个组件都采用了自动装配器实现了轻量级组件集成功能，通过几行配置，将初始化工作交给背后的自动装配器执行。</p>
+<p>将 Nacos 依赖添加到项目中就同时引入了 Nacos 自带的自动装配器。比如以下几个 Nacos 核心功能的初始化任务：</p>
+<ul>
+<li>NacosDiscoveryAutoConfiguration：服务发现功能的自动装配器
+<ul>
+<li>加载 Nacos 配置项：nacosProperties()</li>
+<li>声明 NacosServiceDiscovery 类作用服务发现：nacosServiceDiscovery()</li>
+</ul>
+</li>
+<li>NacosServiceAutoConfiguration
+<ul>
+<li>声明核心服务治理类 NacosServiceManager，可以通过service id、group 等参数获取已注册的服务列表</li>
+</ul>
+</li>
+<li>NacosServiceRegistryAutoConfiguration：服务注册功能的自动装配器</li>
+</ul>
+<p>Spring Boot 自动装配流程：</p>
 <ol>
-<li>官网下载 apache-flume-1.7.0-bin.tar.gz</li>
-<li>解压 tar -zxf apache-flume-1.7.0-bin.tar.gz</li>
+<li>Spring Boot 项目启动时，会有使用 @SpringBootApplication，其中包含了 @EnableAutoConfiguration，会去实例化 jar 包中的META-INF/spring.factories 配置的 xxxAutoConfiguration。</li>
+<li>而 spring-cloud-starter-alibaba-nacos-discovery 这个包下的 META-INF/spring.factories 定义了 NacosDiscoveryAutoConfiguration 这些自动装配器。</li>
 </ol>
-<h2 id="使用">使用</h2>
-<p>主要是配置一个flume的配置文件，这里起名example.conf，规定以如下形式：</p>
-<pre><code># Name the components on this agent
-a1.sources = r1 //定义了一个agent a1，r1为a1的source
-a1.sinks = k1 //k1为a1的sink
-a1.channels = c1 //c1为a1的channel
-
-# Describe/configure the source
-a1.sources.r1.type = netcat #source r1的类型为netcat
-a1.sources.r1.bind = localhost #source r1绑定的地址
-a1.sources.r1.port = 44444 #source r1绑定的端口
-
-# Describe the sink
-a1.sinks.k1.type = logger #sink k1的类型
-
-# Use a channel which buffers events in memory
-a1.channels.c1.type = memory #channel c1的类型
-a1.channels.c1.capacity = 1000 #channel c1的容量
-a1.channels.c1.transactionCapacity = 100 #channel c1的事务容量
-
-# Bind the source and sink to the channel
-a1.sources.r1.channels = c1 #source r1和channel c1绑定
-a1.sinks.k1.channel = c1 #sink k1和channel c1绑定
-</code></pre><p>启动命令：<br>
-<code>bin/flume-ng agent --conf conf --conf-file example.conf --name a1 -Dflume.root.logger=INFO,console</code></p>
-<h1 id="组件种类">组件种类</h1>
-<p>以下列举的是常用的组件类型，有用到其他的类型可以通过官网直接直接搜索类型查看详情</p>
-<h2 id="source">source</h2>
-<ul>
-<li>avro：用于接收从另一个flume（agent）中收到的数据</li>
-<li>exec：用于接收从命令中获取的数据，如结合命令tail -f使用</li>
-<li>netcat：用于接收端口传来的数据</li>
-<li>spooling directory：用于接收文件变动的数据</li>
-</ul>
-<h2 id="channel">channel</h2>
-<ul>
-<li>memory channel 内存，速度快，但宕机时有数据丢失的风险</li>
-<li>file channel 速度比较慢，但安全</li>
-<li>kafka channel</li>
-</ul>
-<h2 id="sink">sink</h2>
-<ul>
-<li>avro 输出到另一个flume（agent）</li>
-<li>hdfs 输出到hdfs</li>
-<li>logger 日志形式输出</li>
-<li>file 文件形式落地</li>
-</ul>
-<blockquote>
-<p>To be continue&hellip;</p>
-</blockquote>
-<h1 id="参考">参考</h1>
-<ol>
-<li><a href="https://flume.apache.org/releases/content/1.9.0/FlumeUserGuide.html" target="_blank" rel="noopener noreffer">Flume官网用户使用手册</a></li>
-</ol>
+<h2 id="nacos-服务发现的底层原理">Nacos 服务发现的底层原理</h2>
+<p>Nacos Client 通过<strong>主动轮询</strong>方式从Nacos Server 获取服务注册信息，包括地址列表、group 分组、cluster 名称等。</p>
+<p>也就是 Nacos Client 会开启一个定时任务，每隔一段时间，从Nacos Server 查询服务注册表，将最新的注册信息更新到本地。</p>
+<p>是Pull 模式，客户端主动从服务端拉取。</p>
+<p>定时任务是负责拉取服务源码是 UpdateTask 类，是 HostReactive 类的一个内部类。在 fianlly 执行  executor 不断循环。</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2021-06-01</span>
+                <span>更新于 2022-05-23</span>
             </div>
             <div class="post-info-license"></div>
         </div>
@@ -223,14 +183,13 @@ a1.sinks.k1.channel = c1 #sink k1和channel c1绑定
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/flume/">Flume</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/spring-cloud/">Spring Cloud</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/posts/%E7%94%9F%E6%B4%BB/temp/" class="prev" rel="prev" title=""><i class="fas fa-angle-left fa-fw"></i></a>
-            <a href="/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0/" class="next" rel="next" title="Redis分布式锁实现">Redis分布式锁实现<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA-%E7%AC%AC%E4%B8%89%E7%89%88-note/" class="prev" rel="prev" title="《深入理解Java虚拟机-第三版》-note"><i class="fas fa-angle-left fa-fw"></i>《深入理解Java虚拟机-第三版》-note</a></div>
 </div>
 </article></div>
             </main><footer class="footer">
