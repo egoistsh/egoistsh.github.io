@@ -3,7 +3,14 @@
         <title>Spring Cloud - 标签 - Kaze Site</title>
         <link>http://example.org/tags/spring-cloud/</link>
         <description>Spring Cloud - 标签 - Kaze Site</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 23 May 2022 14:11:30 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/spring-cloud/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 25 May 2022 14:11:30 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/spring-cloud/" rel="self" type="application/rss+xml" /><item>
+    <title>OpenFeign</title>
+    <link>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/openfeign/</link>
+    <pubDate>Wed, 25 May 2022 14:11:30 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/openfeign/</guid>
+    <description><![CDATA[使用 OpenFeign 组件进行远程调用过程。 使用步骤 在启动类上声明 @EnableFeignClients 用 @FeignClient 修饰代理接口，需确保接口中的每个方法的请求路径和要调用的目标服务保持一致，Feign]]></description>
+</item><item>
     <title>Nacos</title>
     <link>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/nacos/</link>
     <pubDate>Mon, 23 May 2022 14:11:30 &#43;0800</pubDate>

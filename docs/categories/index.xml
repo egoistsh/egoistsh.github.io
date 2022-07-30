@@ -3,10 +3,10 @@
         <title>Categories - 分类 - Kaze Site</title>
         <link>http://example.org/categories/</link>
         <description>Categories - 分类 - Kaze Site</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 23 May 2022 14:11:30 &#43;0800</lastBuildDate><atom:link href="http://example.org/categories/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 25 May 2022 14:11:30 &#43;0800</lastBuildDate><atom:link href="http://example.org/categories/" rel="self" type="application/rss+xml" /><item>
     <title>技术笔记</title>
     <link>http://example.org/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/</link>
-    <pubDate>Mon, 23 May 2022 14:11:30 &#43;0800</pubDate>
+    <pubDate>Wed, 25 May 2022 14:11:30 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://example.org/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/</guid>
     <description><![CDATA[]]></description>
