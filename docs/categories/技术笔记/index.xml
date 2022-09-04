@@ -3,7 +3,14 @@
         <title>技术笔记 - 分类 - Kaze Site</title>
         <link>http://example.org/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/</link>
         <description>技术笔记 - 分类 - Kaze Site</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 25 May 2022 14:11:30 &#43;0800</lastBuildDate><atom:link href="http://example.org/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 04 Sep 2022 21:11:30 &#43;0800</lastBuildDate><atom:link href="http://example.org/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/" rel="self" type="application/rss+xml" /><item>
+    <title>如何实现 ReentrantLock？</title>
+    <link>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0-reentrantlock/</link>
+    <pubDate>Sun, 04 Sep 2022 21:11:30 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0-reentrantlock/</guid>
+    <description><![CDATA[ReentrantLock 是什么？提供什么功能？ ReentrantLock 为可重入锁，指一个线程可以对临界资源重复加锁。 支持公平锁和非公平锁。 支持设置多个条件。 支持响应中断。 公平锁和非公平]]></description>
+</item><item>
     <title>OpenFeign</title>
     <link>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/openfeign/</link>
     <pubDate>Wed, 25 May 2022 14:11:30 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/jvm%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</guid>
     <description><![CDATA[垃圾回收算法 标记-清除 Mark-Sweep 标记-复制：常用于新生代 标记-整理 Mark-Compact 分代回收：只是根据对象存活周期的不同将内存分为几块。一般将 java 堆分为新生代和老年代]]></description>
-</item><item>
-    <title>Java运行时数据区</title>
-    <link>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/java%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA/</link>
-    <pubDate>Thu, 23 Dec 2021 22:31:35 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://example.org/posts/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/java%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA/</guid>
-    <description><![CDATA[运行时数据区 《Java虚拟机规范》 ：“概念模型”这个词会经常被提及， 它代表了所有虚拟机的统一外观， 但各款具体的Java虚拟机并不 一定要完全照]]></description>
 </item></channel>
 </rss>

@@ -66,3 +66,59 @@ Nacos Client 通过**主动轮询**方式从Nacos Server 获取服务注册信�
 
 
 
+## Nacos Config 配置中心
+
+实现配置项与业务逻辑的职责分离。
+
+动态更新的应用场景：
+
+- 业务开关
+- 业务规则更新
+- 灰度发布验证。Nacos 的 Beta 发布功能。
+
+
+
+### 长轮询机制
+
+当 Client 向 Nacos Config 服务端发起一个配置查询请求时，服务端并不会立即返回查询结果，而是将这个请求保持一段时间。如果这段时间内又配置项数据的变更，服务端会触发变更时间，客户端会监听到该实践，并获取相关配置变更。如果这段时间没有数据变更，服务端将释放请求。
+
+采用长轮询机制可以降低多次请求带来的网络开销，并降低更新配置项的延迟。
+
+
+
+### Nacos config 的使用
+
+1. 添加 spring-cloud-starter-alibaba-nacos-config 和 spring-cloud-starter-bootstrap 依赖
+2. 添加本地 Nacos config 配置（boostrap.yml）
+3. 添加配置文件到 Nacos Config Server
+
+
+
+### 为什么要引入 bootstrap 依赖？
+
+引入 bootstrap 依赖是为了让程序启动时能加载本地的 bootstrap 配置文件，因为 Nacos 配置中心的连接信息需要配置在 bootstrap 文件中，而非 application 文件中。在 Spring Cloud 2020.0.0 版本后，bootstrap 文件不会被自动加载，需要主动添加 spring-cloud-starter-bootstrap 依赖，来开启 bootstrap 的自动加载程序。
+
+在 Spring Boot 规范中，bootstrap 文件通常被用于应用程序的上下文引导，bootstrap.yml 的加载优先级高于 application.yml。
+
+
+
+### 动态属性推送实现 Demo
+
+在配置文件中配置了一个特殊的业务属性
+
+在代码中通过 @Value 获取这个属性的值，对其进行判断使用
+
+注意：在Controller类上添加 @RefreshScope 注解，当 Nacos Config 中的属性变动时会动态同步当前类的变量。(原理还是动态代理)
+
+```java
+//xxx-service.yml
+disableRequest: true
+---
+@Value("${disableRequest}")
+private Boolean disable;
+
+@RefreshScope
+public class xxxController {
+}
+```
+

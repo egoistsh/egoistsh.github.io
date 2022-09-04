@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/posts\/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0\/nacos\/"
-        },"genre": "posts","keywords": "Spring Cloud","wordcount":  1008 ,
+        },"genre": "posts","keywords": "Spring Cloud","wordcount":  1577 ,
         "url": "http:\/\/example.org\/posts\/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0\/nacos\/","datePublished": "2022-05-23T14:11:30+08:00","dateModified": "2022-05-23T14:11:30+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Billy"},"author": {
@@ -104,8 +104,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Nacos</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Billy</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw"></i>技术笔记</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-23">2022-05-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1008 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-23">2022-05-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1577 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -115,6 +115,14 @@
   <ul>
     <li><a href="#nacos-自动装配原理">Nacos 自动装配原理</a></li>
     <li><a href="#nacos-服务发现的底层原理">Nacos 服务发现的底层原理</a></li>
+    <li><a href="#nacos-config-配置中心">Nacos Config 配置中心</a>
+      <ul>
+        <li><a href="#长轮询机制">长轮询机制</a></li>
+        <li><a href="#nacos-config-的使用">Nacos config 的使用</a></li>
+        <li><a href="#为什么要引入-bootstrap-依赖">为什么要引入 bootstrap 依赖？</a></li>
+        <li><a href="#动态属性推送实现-demo">动态属性推送实现 Demo</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p>服务治理的关键任务就是：服务注册和服务发现。Nacos 就是一个中心化的服务注册中心。</p>
@@ -166,7 +174,40 @@
 <p>也就是 Nacos Client 会开启一个定时任务，每隔一段时间，从Nacos Server 查询服务注册表，将最新的注册信息更新到本地。</p>
 <p>是Pull 模式，客户端主动从服务端拉取。</p>
 <p>定时任务是负责拉取服务源码是 UpdateTask 类，是 HostReactive 类的一个内部类。在 fianlly 执行  executor 不断循环。</p>
-</div><div class="post-footer" id="post-footer">
+<h2 id="nacos-config-配置中心">Nacos Config 配置中心</h2>
+<p>实现配置项与业务逻辑的职责分离。</p>
+<p>动态更新的应用场景：</p>
+<ul>
+<li>业务开关</li>
+<li>业务规则更新</li>
+<li>灰度发布验证。Nacos 的 Beta 发布功能。</li>
+</ul>
+<h3 id="长轮询机制">长轮询机制</h3>
+<p>当 Client 向 Nacos Config 服务端发起一个配置查询请求时，服务端并不会立即返回查询结果，而是将这个请求保持一段时间。如果这段时间内又配置项数据的变更，服务端会触发变更时间，客户端会监听到该实践，并获取相关配置变更。如果这段时间没有数据变更，服务端将释放请求。</p>
+<p>采用长轮询机制可以降低多次请求带来的网络开销，并降低更新配置项的延迟。</p>
+<h3 id="nacos-config-的使用">Nacos config 的使用</h3>
+<ol>
+<li>添加 spring-cloud-starter-alibaba-nacos-config 和 spring-cloud-starter-bootstrap 依赖</li>
+<li>添加本地 Nacos config 配置（boostrap.yml）</li>
+<li>添加配置文件到 Nacos Config Server</li>
+</ol>
+<h3 id="为什么要引入-bootstrap-依赖">为什么要引入 bootstrap 依赖？</h3>
+<p>引入 bootstrap 依赖是为了让程序启动时能加载本地的 bootstrap 配置文件，因为 Nacos 配置中心的连接信息需要配置在 bootstrap 文件中，而非 application 文件中。在 Spring Cloud 2020.0.0 版本后，bootstrap 文件不会被自动加载，需要主动添加 spring-cloud-starter-bootstrap 依赖，来开启 bootstrap 的自动加载程序。</p>
+<p>在 Spring Boot 规范中，bootstrap 文件通常被用于应用程序的上下文引导，bootstrap.yml 的加载优先级高于 application.yml。</p>
+<h3 id="动态属性推送实现-demo">动态属性推送实现 Demo</h3>
+<p>在配置文件中配置了一个特殊的业务属性</p>
+<p>在代码中通过 @Value 获取这个属性的值，对其进行判断使用</p>
+<p>注意：在Controller类上添加 @RefreshScope 注解，当 Nacos Config 中的属性变动时会动态同步当前类的变量。(原理还是动态代理)</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//xxx-service.yml
+</span><span class="c1"></span><span class="nl">disableRequest:</span> <span class="kc">true</span>
+<span class="o">---</span>
+<span class="nd">@Value</span><span class="o">(</span><span class="s">&#34;${disableRequest}&#34;</span><span class="o">)</span>
+<span class="kd">private</span> <span class="n">Boolean</span> <span class="n">disable</span><span class="o">;</span>
+
+<span class="nd">@RefreshScope</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">xxxController</span> <span class="o">{</span>
+<span class="o">}</span>
+</code></pre></div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
