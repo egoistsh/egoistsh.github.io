@@ -23,5 +23,7 @@
     "vuepress-theme-vdoing": "^1.12.3",
     "yamljs": "^0.3.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "markdown-it-task-lists": "^2.1.1"
+  }
 }

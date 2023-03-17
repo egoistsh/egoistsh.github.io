@@ -98,6 +98,21 @@ module.exports = {
       copyrightInfo: 'Kaze | MIT License', // 博客版权信息，支持a标签
     },
     htmlModules,
+
+    mdEnhance: { // markdown 增强
+      // 启用任务列表
+      tasklist: true,
+      // 启用下角标功能
+      sub: true,
+      // 启用上角标
+      sup: true,
+      // 启用流程图
+      flowchart: true,
+      // Enable mermaid
+      mermaid: true,
+      // 启用 TeX 支持
+      tex: true,
+    },
   },
 
   // 插件
@@ -173,6 +188,10 @@ module.exports = {
   markdown: {
     // lineNumbers: true,
     extractHeaders: ['h2', 'h3', 'h4', 'h5', 'h6'], // 提取标题到侧边栏的级别，默认['h2', 'h3']
+    extendMarkdown: md => {
+      // use more markdown-it plugins!
+      md.use(require('markdown-it-task-lists'))
+    }
   },
 
   // 监听文件变化并重新构建
