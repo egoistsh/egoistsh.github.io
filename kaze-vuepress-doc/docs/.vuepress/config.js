@@ -7,7 +7,7 @@ module.exports = {
   theme: 'vdoing', // 使用依赖包主题
   // theme: require.resolve('../../vdoing'), // 使用本地主题 (先将vdoing主题文件下载到本地：https://github.com/xugaoyi/vuepress-theme-vdoing)
 
-  title: "cs-wiki",
+  title: "Boundless wiki",
   description: '一个基于VuePress的 知识管理&博客 主题',
   // base: '/', // 默认'/'。如果你想将你的网站部署到如 https://foo.github.io/bar/，那么 base 应该被设置成 "/bar/",（否则页面将失去样式等文件）
   head: [ // 注入到页面<head> 中的标签，格式[tagName, { attrName: attrValue }, innerHTML?]
@@ -28,18 +28,34 @@ module.exports = {
         text: 'Java', link: '/pages/java/',
         items: [
           { text: 'Java 基础', link: '/pages/java/' },
-          { text: 'Java 集合', link: '/pages/javalist/' },
+          { text: 'Java 集合', link: '/pages/collection/' },
           { text: 'Java 并发', link: '/pages/javaconcurrent/' },
           { text: 'Java 虚拟机', link: '/pages/jvm/' },
           // { text: 'Java 新版本特性', link: '/pages/java8new/' }
         ]
       },
+      { text: 'Java框架', link: '/pages/javaframework/'},
+      { text: 'MySQL', link: '/pages/mysql/'},
       { text: 'Redis', link: '/pages/redis/'},
+      { 
+        text: '计算机基础',
+        items: [
+          { text: '计算机网络', link: '/pages/network/' },
+          { text: '操作系统', link: '/pages/os/' },
+        ]
+      },
+      { 
+        text: '工具',
+        items: [
+          { text: 'Git', link: '/pages/git/' },
+          // { text: '操作系统', link: '/pages/os/' },
+        ]
+      },
       { text: '归档', link: '/archives/'}
     ],
     sidebarDepth: 2, // 侧边栏显示深度，默认1，最大2（显示到h3标题）
     logo: '/img/logo.png', // 导航栏logo
-    repo: 'xugaoyi/vuepress-theme-vdoing', // 导航栏右侧生成Github链接
+    repo: 'egoistsh', // 导航栏右侧生成Github链接
     searchMaxSuggestions: 10, // 搜索结果显示最大数
     lastUpdated: '上次更新', // 更新的时间，及前缀文字   string | boolean (取值为git提交时间)
 
@@ -71,7 +87,7 @@ module.exports = {
 
     author: { // 文章默认的作者信息，可在md文件中单独配置此信息 String | {name: String, href: String}
       name: 'Kaze', // 必需
-      href: 'https://github.com/kaze' // 可选的
+      href: 'https://github.com/egoistsh' // 可选的
     },
     social: { // 社交图标，显示于博主信息栏和页脚栏
       // iconfontCssFile: '//at.alicdn.com/t/font_1678482_u4nrnp8xp6g.css', // 可选，阿里图标库在线css文件地址，对于主题没有的图标可自由添加
@@ -79,22 +95,22 @@ module.exports = {
         {
           iconClass: 'icon-youjian',
           title: '发邮件',
-          link: 'mailto:894072666@qq.com'
+          // link: 'mailto:894072666@qq.com'
         },
         {
           iconClass: 'icon-github',
           title: 'GitHub',
-          link: 'https://github.com/xugaoyi'
+          link: 'https://github.com/egoistsh'
         },
         {
           iconClass: 'icon-erji',
           title: '听音乐',
-          link: 'https://music.163.com/#/playlist?id=755597173'
+          // link: 'https://music.163.com/#/playlist?id=755597173'
         }
       ]
     },
     footer: { // 页脚信息
-      createYear: 2019, // 博客创建年份
+      createYear: 2023, // 博客创建年份
       copyrightInfo: 'Kaze | MIT License', // 博客版权信息，支持a标签
     },
     htmlModules,
